@@ -43,4 +43,4 @@ export const ACCOUNTS: IAccount = {
 	'chainB': process.env.CHAIN_B_ORIGINAL_OWNER_PK as string
 }
 
-export const MUTLI_SIG: string = "0xD244519000000000000000000000000000000000";
+export const MULTI_SIG: string = "0xD244519000000000000000000000000000000000";

@@ -52,7 +52,7 @@ async function CheckConfigController(controller: GlobalController, chain: string
         
         result['originator']['public_key'] = public_key;
         
-        const safe_key: string = Config.MUTLI_SIG;
+        const safe_key: string = Config.MULTI_SIG;
         
         result['safe']['public_key'] = safe_key;
 

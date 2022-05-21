@@ -118,8 +118,8 @@ class GlobalController {
 		return Config.CHAIN_NAMES[key];
 	}
 
-	public getContract(key: string, isCalypso: boolean = true) {
-		if (isCalypso) {
+	public getContract(key: string, isChainA: boolean = true) {
+		if (isChainA) {
 			switch (key) {
 				case 'etherbase':
 					return this._etherbaseChainA;
