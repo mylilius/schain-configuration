@@ -33,7 +33,14 @@ export interface IAccount {
 }
 
 
-export const ACCOUNTS: IAccount = {
-	'calypso': process.env.CALYPSO_ORIGINAL_OWNER_PK as string,
-	'mylilius': process.env.MYLILIUS_ORIGINAL_OWNER_PK as string
+export const SAFE_ADDRESSES: IAccount = {
+    'chainA': process.env.CHAIN_A_SAFE_ADDRESS as string,
+    'chainB': process.env.CHAIN_B_SAFE_ADDRESS as string
 }
+
+export const ACCOUNTS: IAccount = {
+	'chainA': process.env.CHAIN_A_ORIGINAL_OWNER_PK as string,
+	'chainB': process.env.CHAIN_B_ORIGINAL_OWNER_PK as string
+}
+
+export const MUTLI_SIG: string = "0xD244519000000000000000000000000000000000";

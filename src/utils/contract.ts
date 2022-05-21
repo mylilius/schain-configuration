@@ -35,7 +35,6 @@ class Contract {
 	private _contract: ethers.Contract;
 
 	constructor(key: string, signer: Utils.Signer, isSChain: boolean = true) {
-		console.log("Key: ", key);
 		this._address = isSChain ? Config.ADDRESSES_SCHAIN[key] : Config.ADDRESSES_MAINNET[key];
 		this._abi = isSChain ? Config.ABIs_SCHAIN[key] : Config.ABIs_MAINNET[key];
 		this._signer = signer;
@@ -43,7 +42,6 @@ class Contract {
 	}
 
 	private _buildContract(): ethers.Contract {
-		console.log("This Address: ", this._address);
 		return new ethers.Contract(this._address, this._abi, this._signer.wallet);
 	}
 

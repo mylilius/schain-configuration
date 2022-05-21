@@ -30,47 +30,51 @@ import * as Config from './config';
 class GlobalController {
 	
 	private _networks: Utils.Networks = new Utils.Networks();
-	private _web3Calypso: Utils.Web3;
-	private _web3MyLilius: Utils.Web3;
+	private _web3ChainA: Utils.Web3;
+	private _web3ChainB: Utils.Web3;
 	private _web3Mainnet: Utils.Web3;
-	private _calypsoOwner: Utils.Signer;
-	private _myLiliusOwner: Utils.Signer;
-	private _calypsoMainnetOwner: Utils.Signer;
-	private _myliliusMainnetOwner: Utils.Signer;
-	private _etherbaseCalypso: Utils.Contract;
-	private _marionetteCalypso: Utils.Contract;
-	private _configControllerCalypso: Utils.Contract;
-	private _etherbaseMyLilius: Utils.Contract;
-	private _marionetteMyLilius: Utils.Contract;
-	private _configControllerMyLilius: Utils.Contract;
-	private _messageProxyCalypso: Utils.Contract;
-	private _messageProxyMyLilius: Utils.Contract;
+	private _chainASafe: string;
+	private _chainBSafe: string;
+	private _chainAOwner: Utils.Signer;
+	private _chainBOwner: Utils.Signer;
+	private _chainAMainnetOwner: Utils.Signer;
+	private _chainBMainnetOwner: Utils.Signer;
+	private _etherbaseChainA: Utils.Contract;
+	private _marionetteChainA: Utils.Contract;
+	private _configControllerChainA: Utils.Contract;
+	private _etherbaseChainB: Utils.Contract;
+	private _marionetteChainB: Utils.Contract;
+	private _configControllerChainB: Utils.Contract;
+	private _messageProxyChainA: Utils.Contract;
+	private _messageProxyChainB: Utils.Contract;
 
 	constructor() {
 		this._initNetworks();
-		this._web3Calypso = this._initWeb3('calypso');
+		this._web3ChainA = this._initWeb3('chainA');
 		this._web3Mainnet = this._initWeb3('mainnet');
-		this._web3MyLilius = this._initWeb3('mylilius');
-		this._calypsoOwner = this._createOwner('calypso', true, false);
-		this._myLiliusOwner = this._createOwner('mylilius', false, false);
-		this._calypsoMainnetOwner = this._createOwner('calypso', false, true);
-		this._myliliusMainnetOwner = this._createOwner('mylilius', false, true);
-		this._etherbaseCalypso = this._buildContract('etherbase', true, 'calypso');
-		this._marionetteCalypso = this._buildContract('marionette', true, 'calypso');
-		this._configControllerCalypso = this._buildContract('configController', true, 'calypso');
-		this._etherbaseMyLilius = this._buildContract('etherbase', true, 'mylilius');
-		this._marionetteMyLilius = this._buildContract('marionette', true, 'mylilius');
-		this._configControllerMyLilius = this._buildContract('configController', true, 'mylilius');
-		this._messageProxyCalypso = this._buildContract('messageProxy', false, 'calypso');
-		this._messageProxyMyLilius = this._buildContract('messageProxy', false, 'mylilius');
+		this._web3ChainB = this._initWeb3('chainB');
+		this._chainASafe = this._initSafe('chainA');
+		this._chainBSafe = this._initSafe('chainB');
+		this._chainAOwner = this._createOwner('chainA', true, false);
+		this._chainBOwner = this._createOwner('chainB', false, false);
+		this._chainAMainnetOwner = this._createOwner('chainA', false, true);
+		this._chainBMainnetOwner = this._createOwner('chainB', false, true);
+		this._etherbaseChainA = this._buildContract('etherbase', true, 'chainA');
+		this._marionetteChainA = this._buildContract('marionette', true, 'chainA');
+		this._configControllerChainA = this._buildContract('configController', true, 'chainA');
+		this._etherbaseChainB = this._buildContract('etherbase', true, 'chainB');
+		this._marionetteChainB = this._buildContract('marionette', true, 'chainB');
+		this._configControllerChainB = this._buildContract('configController', true, 'chainB');
+		this._messageProxyChainA = this._buildContract('messageProxy', false, 'chainA');
+		this._messageProxyChainB = this._buildContract('messageProxy', false, 'chainB');
 	}
 
 	private _initNetworks() {
-		let calypso: any = Config.CALYPSO;
+		let chainA: any = Config.CHAIN_A;
 		let mainnet: any = Config.MAINNET;
-		let mylilius: any = Config.MYLILIUS;
-		this._networks.buildSkaleNetwork(calypso);
-		this._networks.buildSkaleNetwork(mylilius);
+		let chainB: any = Config.CHAIN_B;
+		this._networks.buildSkaleNetwork(chainA);
+		this._networks.buildSkaleNetwork(chainB);
 		this._networks.buildNetwork(mainnet);
 	}
 
@@ -79,57 +83,69 @@ class GlobalController {
 		return new Utils.Web3(_rpcUrl);
 	}
 
+	private _initSafe(key: string) {
+		const _address: string = Config.SAFE_ADDRESSES[key];
+		return _address;
+	}
+
 	private _createOwner(key: string, isCalypso: boolean, isMainnet: boolean) {
 		const _privateKey: string = Config.ACCOUNTS[key];
 		let _client;
 		if (isMainnet) {
 			_client = this._web3Mainnet.client;
 		} else if (isCalypso) {
-			_client = this._web3Calypso.client;
+			_client = this._web3ChainA.client;
 		} else {
-			_client = this._web3MyLilius.client;
+			_client = this._web3ChainB.client;
 		}
 
 		return new Utils.Signer(_privateKey, _client);
 	}
 
-	public get signer() {
-		return this._calypsoOwner.wallet;
+	public getSigner(isChainA: boolean) {
+		return isChainA ? this._chainAOwner.wallet : this._chainBOwner.wallet;
 	}
 
 	private _buildContract(key: string, isSChain: boolean = true, chainKey: string) {
 		if (!isSChain) {
-			return new Utils.Contract(key, chainKey === 'calypso' ? this._calypsoMainnetOwner : this._myliliusMainnetOwner, isSChain);
+			return new Utils.Contract(key, chainKey === 'chainA' ? this._chainAMainnetOwner : this._chainBMainnetOwner, isSChain);
 		} else {
-			return new Utils.Contract(key, chainKey === 'calypso' ? this._calypsoOwner : this._myLiliusOwner, isSChain);
+			return new Utils.Contract(key, chainKey === 'chainA' ? this._chainAOwner : this._chainBOwner, isSChain);
 		}
-		
+	}
+
+	public getSChainName(key: string) {
+		return Config.CHAIN_NAMES[key];
 	}
 
 	public getContract(key: string, isCalypso: boolean = true) {
 		if (isCalypso) {
 			switch (key) {
 				case 'etherbase':
-					return this._etherbaseCalypso;
+					return this._etherbaseChainA;
 				case 'marionette':
-					return this._marionetteCalypso;
-				case 'config':
-					return this._configControllerCalypso;
+					return this._marionetteChainA;
+				case 'configController':
+					return this._configControllerChainA;
 				case 'messageProxy':
-					return this._messageProxyCalypso;
+					return this._messageProxyChainA;
 			}
 		} else {
 			switch (key) {
 				case 'etherbase':
-					return this._etherbaseMyLilius;
+					return this._etherbaseChainB;
 				case 'marionette':
-					return this._marionetteMyLilius;
-				case 'config':
-					return this._configControllerMyLilius;
+					return this._marionetteChainB;
+				case 'configController':
+					return this._configControllerChainB;
 				case 'messageProxy':
-					return this._messageProxyMyLilius;
+					return this._messageProxyChainB;
 			}
 		}
+	}
+
+	public getSafe(key: string) : string {
+		return key === 'chainA' ? this._chainASafe : this._chainBSafe;
 	}
 }
 
