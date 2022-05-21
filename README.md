@@ -16,8 +16,8 @@
 - [x] Controller Setup
 	- [x] Setup Controller Class
 	- [x] Networks State and Init
-	- [x] Calypso Chain State and Init
-	- [x] MyLilius Chain State and Init
+	- [x] Chain A State and Init
+	- [x] Chain B State and Init
 	- [x] Etherbase Contract State and Init
 	- [x] Marionette Contract State and Init
 	- [x] Config Controller Contract State and Init
@@ -26,11 +26,11 @@
 ###### PDMSG = Pre Deployed Multi Sig
 
 - [ ] Scripts
-	- [ ] Roles.ts
-		- [ ] Checks Core Roles on Mainnet
-		- [ ] Checks Core Roles on sChain
-		- [ ] MyLilius Chain Prints to Outputs
-		- [ ] Calypso Chain Prints to Outputs
+	- [x] Roles.ts
+		- [x] Checks Core Roles on Mainnet
+		- [x] Checks Core Roles on sChain
+		- [x] Chain A Prints to Outputs
+		- [x] Chain B Chain Prints to Outputs
 	- [ ] L1Assigner.ts
 		- [ ] Uses mutlisig to generate encodeData for assigning a role on sChain to predeployed multisig
 		- [ ] A. Use Gnosis Safe ABI to send encodedTx

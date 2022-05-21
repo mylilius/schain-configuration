@@ -29,3 +29,5 @@ export * from './network';
 export * from './networks';
 export * from './signer';
 export * from './web3';
+
+export * from './filestorage';

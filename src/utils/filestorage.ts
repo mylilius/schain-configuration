@@ -18,28 +18,48 @@
  */
 
 /**
- * @file index.ts
+ * @file filestorage.ts
  * @copyright TheGreatAxios | Lilius, Inc 2022-Present
  * 
  * Questions regarding the pseudonym of TheGreatAxios can be forwarded to thegreataxios@mylilius.com
 **/
 
-import GlobalController from './controller';
-import Services from './services/services';
 
-async function main() {
+import path from 'path';
+import fs from 'fs';
 
-    const controller = new GlobalController();
-    const services = new Services(controller);
-    // await services.freeContractDeployment(true);
-    // await services.addRoles();
+class FileStorage {
+
+	static BASE_DIR: string = '../../../../outputs';
+	static ROLES: string = '/roles';
+
+	private _buildPath(dir: string, key: string): string {
+		switch (key) {
+		case 'roles':
+			return path.join(dir + FileStorage.BASE_DIR + FileStorage.ROLES); 
+		default:
+			return '';
+		}
+	}
+
+	private _buildFullPath(dir: string, key: string, file: string) {
+		return this._buildPath(dir, key) + `/${file}`;
+	}
+
+	public getDirLength(dir: string, key: string) : number {
+		return fs.readdirSync(this._buildPath(dir, key)).length;
+	}
+
+	public writeFile(dir: string, key: string, file: string, data: string): void {
+		try {
+			fs.writeFileSync(this._buildFullPath(dir, key, file), data);
+		} catch (err: any) {
+			throw Error(err);
+		}
+	}
+
 }
 
-main()
-    .then(() => {
-        process.exit(0);
-    })
-    .catch((err: any) => {
-        console.log("Error: ", err);
-        process.exit(1); 
-    });
+export {
+	FileStorage
+}
