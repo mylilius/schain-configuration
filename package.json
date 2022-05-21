@@ -4,7 +4,7 @@
   "description": "SKALE Chain Configuration",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon --watch \"./**/**/*.ts\" --exec \"ts-node\" ./src/index.ts"
+    "roles:check": "tsc && node ./build/scripts/roles/roles.js"
   },
   "author": "TheGreatAxios",
   "license": "AGPL-3.0-or-later",

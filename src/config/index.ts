@@ -26,5 +26,6 @@
 
 export * from './abis';
 export * from './accounts';
+export * from './environment';
 export * from './networks';
 export * from './predeployed';

@@ -28,18 +28,27 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-export const CALYPSO: any = {
-	key: 'calypso',
-	name: process.env.CALYPSO_NAME,
-	baseUrl: process.env.CALYPSO_BASE_URL,
-	vId: process.env.CALYPSO_VERSION
+interface IChainName {
+    [key: string]: string;
+}
+
+export const CHAIN_A: any = {
+	key: 'chainA',
+	name: process.env.CHAIN_A_NAME,
+	baseUrl: process.env.CHAIN_A_BASE_URL,
+	vId: process.env.CHAIN_A_VERSION
 };
 
-export const MYLILIUS: any = {
-	key: 'mylilius',
-	name: process.env.MYLILIUS_NAME,
-	baseUrl: process.env.MYLILIUS_BASE_URL,
-	vId: process.env.MYLILIUS_VERSION
+export const CHAIN_B: any = {
+	key: 'chainB',
+	name: process.env.CHAIN_B_NAME,
+	baseUrl: process.env.CHAIN_B_BASE_URL,
+	vId: process.env.CHAIN_B_VERSION
 };
+
+export const CHAIN_NAMES: IChainName = {
+    'chainA': process.env.CHAIN_A_NAME as string,
+    'chainB': process.env.CHAIN_B_NAME as string
+}
 
 export const MAINNET: string = "https://rinkeby.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161";
