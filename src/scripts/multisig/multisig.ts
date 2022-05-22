@@ -34,8 +34,14 @@ const ASSIGN_MARIONETTE: boolean = Config.ASSIGN_MARIONETTE;
 const ASSIGN_CONFIG_CONTROLLER: boolean = Config.ASSIGN_CONFIG_CONTROLLER;
 
 /// Roles to Fire Off
-const ASSIGN_DEFAULT_ADMIN_ROLE: boolean = Config.ASSIGN_DEFAULT_ADMIN_ROLE;
-const ASSIGN_ETHER_MANAGER_ROLE: boolean = Config.ASSIGN_ETHER_MANAGER_ROLE;
+const ASSIGN_ETHER_BASE_DEFAULT_ADMIN_ROLE: boolean = Config.ASSIGN_ETHER_BASE_DEFAULT_ADMIN_ROLE;
+const ASSIGN_ETHER_BASE_MANAGER_ROLE: boolean = Config.ASSIGN_ETHER_BASE_MANAGER_ROLE;
+const ASSIGN_CONFIG_CONTROLLER_DEPLOYER_ROLE: boolean = Config.ASSIGN_CONFIG_CONTROLLER_DEPLOYER_ROLE;
+const ASSIGN_CONFIG_CONTROLLER_DEFAULT_ADMIN_ROLE: boolean = Config.ASSIGN_CONFIG_CONTROLLER_DEFAULT_ADMIN_ROLE;
+const ASSIGN_CONFIG_CONTROLLER_DEPLOYER_ADMIN_ROLE: boolean = Config.ASSIGN_CONFIG_CONTROLLER_DEPLOYER_ADMIN_ROLE;
+const ASSIGN_CONFIG_CONTROLLER_MTM_ADMIN_ROLE: boolean = Config.ASSIGN_CONFIG_CONTROLLER_MTM_ADMIN_ROLE;
+
+
 /// Assignment
 const ASSIGN_CHAINS: string = Config.ASSIGN_CHAINS;
 const ASSIGN_TO: string = Config.ASSIGN_TO;
@@ -45,49 +51,114 @@ class MultiSig {
     
     private controller: GlobalController = new GlobalController();
 
-    public assignDefaultAdminRole() {
-        if (!ASSIGN_DEFAULT_ADMIN_ROLE) {
+    public assignEtherbaseDefaultAdminRole() {
+        if (!ASSIGN_ETHERBASE || !ASSIGN_ETHER_BASE_DEFAULT_ADMIN_ROLE) {
             return;
         }
 
         if (ASSIGN_CHAINS === 'both') {
-            this._assignRoles('chainA', 'DEFAULT_ADMIN_ROLE');
-            this._assignRoles('chainB', 'DEFAULT_ADMIN_ROLE');
+            this._assignEtherbase('chainA', 'DEFAULT_ADMIN_ROLE');
+            this._assignEtherbase('chainB', 'DEFAULT_ADMIN_ROLE');
         } else {
-            this._assignRoles(ASSIGN_CHAINS, 'DEFAULT_ADMIN_ROLE');
+            this._assignEtherbase(ASSIGN_CHAINS, 'DEFAULT_ADMIN_ROLE');
         }
     }
 
-    public assignEtherManagerRole() {
-        if (!ASSIGN_ETHER_MANAGER_ROLE) {
+    public assignEtherbaseEtherManagerRole() {
+        if (!ASSIGN_ETHERBASE || !ASSIGN_ETHER_BASE_MANAGER_ROLE) {
             return;
         }
 
         if (ASSIGN_CHAINS === 'both') {
-            this._assignRoles('chainA', 'ETHER_MANAGER_ROLE');
-            this._assignRoles('chainB', 'ETHER_MANAGER_ROLE');
+            this._assignEtherbase('chainA', 'ETHER_MANAGER_ROLE');
+            this._assignEtherbase('chainB', 'ETHER_MANAGER_ROLE');
         } else {
-            this._assignRoles(ASSIGN_CHAINS, 'ETHER_MANAGER_ROLE');
+            this._assignEtherbase(ASSIGN_CHAINS, 'ETHER_MANAGER_ROLE');
         }
     }
 
-    private _assignRoles(chain: string, role: string) {
-        if (ASSIGN_ETHERBASE) this._assignEtherbase(chain, role);
-        if (ASSIGN_MARIONETTE) this._assignMarionette(chain, role);
-        if (ASSIGN_CONFIG_CONTROLLER) this._assignConfigController(chain, role);
+    public assignConfigControllerDefaultAdminRole() {
+        if (!ASSIGN_CONFIG_CONTROLLER || !ASSIGN_CONFIG_CONTROLLER_DEFAULT_ADMIN_ROLE) {
+            return;
+        }
+
+        if (ASSIGN_CHAINS === 'both') {
+            this._assignConfigController('chainA', 'DEFAULT_ADMIN_ROLE');
+            this._assignConfigController('chainB', 'DEFAULT_ADMIN_ROLE');
+        } else {
+            this._assignConfigController(ASSIGN_CHAINS, 'DEFAULT_ADMIN_ROLE');
+        }
     }
+
+    public assignConfigControllerDeployerRole() {
+        console.log("ABC")
+        console.log(ASSIGN_CONFIG_CONTROLLER, ASSIGN_CONFIG_CONTROLLER_DEPLOYER_ROLE);
+        if (!ASSIGN_CONFIG_CONTROLLER || !ASSIGN_CONFIG_CONTROLLER_DEPLOYER_ROLE) {
+            return;
+        }
+
+        if (ASSIGN_CHAINS === 'both') {
+            console.log(1)
+            this._assignConfigController('chainA', 'DEPLOYER_ROLE');
+            this._assignConfigController('chainB', 'DEPLOYER_ROLE');
+        } else {
+            console.log(2)
+            this._assignConfigController(ASSIGN_CHAINS, 'DEPLOYER_ROLE');
+        }
+    }
+
+    /// TODO Implement
+    public assignConfigControllerDeployerAdminRole() {
+        
+        if (!ASSIGN_CONFIG_CONTROLLER || !ASSIGN_CONFIG_CONTROLLER_DEPLOYER_ADMIN_ROLE) {
+            return;
+        }
+
+        if (ASSIGN_CHAINS === 'both') {
+            console.log(1)
+            this._assignConfigController('chainA', 'DEPLOYER_ADMIN_ROLE');
+            this._assignConfigController('chainB', 'DEPLOYER_ADMIN_ROLE');
+        } else {
+            console.log(2)
+            this._assignConfigController(ASSIGN_CHAINS, 'DEPLOYER_ADMIN_ROLE');
+        }
+    }
+
+    /// TODO Implement
+    public assignConfigControllerMTMAdminRole() {
+        if (!ASSIGN_CONFIG_CONTROLLER || !ASSIGN_CONFIG_CONTROLLER_MTM_ADMIN_ROLE) {
+            return;
+        }
+
+        if (ASSIGN_CHAINS === 'both') {
+            console.log(1)
+            this._assignConfigController('chainA', 'MTM_ADMIN_ROLE');
+            this._assignConfigController('chainB', 'MTM_ADMIN_ROLE');
+        } else {
+            console.log(2)
+            this._assignConfigController(ASSIGN_CHAINS, 'MTM_ADMIN_ROLE');
+        }
+    }
+
 
     private _assignEtherbase(chain: string, role: string) {
         let res = assignRole(ASSIGN_TO, 'Etherbase', 'grantRole', chain, role, this.controller);
     }
 
-    private _assignMarionette(chain: string, role: string) {}
-    private _assignConfigController(chain: string, role: string) {}
+    // private _assignMarionette(chain: string, role: string) {}
+    private _assignConfigController(chain: string, role: string) {
+        let res = assignRole(ASSIGN_TO, 'ConfigController', 'grantRole', chain, role, this.controller);
+    }
 }
 
 function main() {
     const msg: MultiSig = new MultiSig();
-    msg.assignDefaultAdminRole();
+    msg.assignEtherbaseDefaultAdminRole();
+    msg.assignEtherbaseEtherManagerRole();
+    msg.assignConfigControllerDefaultAdminRole();
+    msg.assignConfigControllerDeployerRole();
+    msg.assignConfigControllerDeployerAdminRole();
+    msg.assignConfigControllerMTMAdminRole();
 }
 
 

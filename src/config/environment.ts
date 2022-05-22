@@ -56,10 +56,17 @@ export const IMA_CHECK: boolean = Boolean(process.env.IMA_CHECK === 'true') as b
 export const ASSIGN_ETHERBASE: boolean = Boolean(process.env.ASSIGN_ETHERBASE === 'true') as boolean;
 export const ASSIGN_MARIONETTE: boolean = Boolean(process.env.ASSIGN_MARIONETTE === 'true') as boolean;
 export const ASSIGN_CONFIG_CONTROLLER: boolean = Boolean(process.env.ASSIGN_CONFIG_CONTROLLER === 'true') as boolean;
-export const ASSIGN_DEFAULT_ADMIN_ROLE: boolean = Boolean(process.env.ASSIGN_DEFAULT_ADMIN_ROLE === 'true') as boolean;
+export const ASSIGN_ETHER_BASE_DEFAULT_ADMIN_ROLE: boolean = Boolean(process.env.ASSIGN_ETHER_BASE_DEFAULT_ADMIN_ROLE === 'true') as boolean;
 const ORIGINAL_ASSIGN_TO: string | undefined = process.env.ASSIGN_TO;
 export const ASSIGN_CHAINS: string = process.env.ASSIGN_CHAINS as string;
 
 export const ASSIGN_TO: string = !ORIGINAL_ASSIGN_TO ? MULTI_SIG : ORIGINAL_ASSIGN_TO;
 
-export const ASSIGN_ETHER_MANAGER_ROLE: boolean = Boolean(process.env.ASSIGN_ETHER_MANAGER_ROLE === 'true') as boolean;
+export const ASSIGN_ETHER_BASE_MANAGER_ROLE: boolean = Boolean(process.env.ASSIGN_ETHER_BASE_MANAGER_ROLE === 'true') as boolean;
+export const ASSIGN_CONFIG_CONTROLLER_DEPLOYER_ROLE: boolean = Boolean(process.env.ASSIGN_CONFIG_CONTROLLER_DEPLOYER_ROLE === 'true') as boolean;
+export const ASSIGN_CONFIG_CONTROLLER_DEFAULT_ADMIN_ROLE: boolean = Boolean(process.env.ASSIGN_CONFIG_CONTROLLER_DEFAULT_ADMIN_ROLE === 'true') as boolean;
+export const ASSIGN_CONFIG_CONTROLLER_DEPLOYER_ADMIN_ROLE: boolean = Boolean(process.env.ASSIGN_CONFIG_CONTROLLER_DEPLOYER_ADMIN_ROLE === 'true') as boolean;
+export const ASSIGN_CONFIG_CONTROLLER_MTM_ADMIN_ROLE: boolean = Boolean(process.env.ASSIGN_CONFIG_CONTROLLER_MTM_ADMIN_ROLE === 'true') as boolean;
+
+
+

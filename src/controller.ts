@@ -119,13 +119,14 @@ class GlobalController {
 	}
 
 	public getContract(key: string, isChainA: boolean = true) {
+		key = key.toLowerCase();
 		if (isChainA) {
 			switch (key) {
 				case 'etherbase':
 					return this._etherbaseChainA;
 				case 'marionette':
 					return this._marionetteChainA;
-				case 'configController':
+				case 'configcontroller':
 					return this._configControllerChainA;
 				case 'messageProxy':
 					return this._messageProxyChainA;
@@ -136,7 +137,7 @@ class GlobalController {
 					return this._etherbaseChainB;
 				case 'marionette':
 					return this._marionetteChainB;
-				case 'configController':
+				case 'configcontroller':
 					return this._configControllerChainB;
 				case 'messageProxy':
 					return this._messageProxyChainB;

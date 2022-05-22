@@ -32,7 +32,9 @@ import * as Config from '../../config';
 function assignRole(assignee: string, contract: string, fn: string, chain: string, role: string, controller: GlobalController) {
 	console.log("FN: ", role);
 	const S_CHAIN_NAME: string = Config.CHAIN_NAMES[chain];
+
 	const smartContract: Contract = controller.getContract(contract.toLowerCase(), chain === 'chainA')!.contract;
+	console.log(smartContract);
 	let _function: Promise<any>;
 	if (contract === 'Etherbase') {
 		if (role === 'DEFAULT_ADMIN_ROLE') {
@@ -40,6 +42,12 @@ function assignRole(assignee: string, contract: string, fn: string, chain: strin
 			_function = smartContract.callStatic.DEFAULT_ADMIN_ROLE();
 		} else {
 			_function = smartContract.callStatic.ETHER_MANAGER_ROLE();
+		}
+	} else if (contract === 'ConfigController') {
+		if (role === 'DEFAULT_ADMIN_ROLE') {
+			_function = smartContract.callStatic.DEFAULT_ADMIN_ROLE();
+		} else if (role === 'DEPLOYER_ROLE') {
+			_function = smartContract.callStatic.DEPLOYER_ROLE();
 		}
 	}
 
