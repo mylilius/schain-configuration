@@ -4,6 +4,8 @@
   "description": "SKALE Chain Configuration",
   "main": "index.js",
   "scripts": {
+    "install:multisg-cli": "./install_msg.sh",
+    "multisig:assign": "tsc && node ./build/scripts/multisig/multisig.js",
     "roles:check": "tsc && node ./build/scripts/roles/roles.js"
   },
   "author": "TheGreatAxios",
