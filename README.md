@@ -32,7 +32,7 @@
 		- [x] Chain A Prints to Outputs
 		- [x] Chain B Chain Prints to Outputs
 	- [ ] L1Assigner.ts
-		- [ ] Uses mutlisig to generate encodeData for assigning a role on sChain to predeployed multisig
+		- [x] Uses mutlisig to generate encodeData for assigning a role on sChain to predeployed multisig
 		- [ ] A. Use Gnosis Safe ABI to send encodedTx
 		- [ ] B. Use Gnosis Safe UI to send EncodedTx
 		- [ ] Check Role on sChain
