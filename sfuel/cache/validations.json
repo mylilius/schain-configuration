@@ -2,6 +2,538 @@
   "version": "3.2",
   "log": [
     {
+      "AccessControl": {
+        "src": "@openzeppelin/contracts/access/AccessControl.sol:49",
+        "inherit": [
+          "ERC165",
+          "IERC165",
+          "IAccessControl",
+          "Context"
+        ],
+        "libraries": [
+          "Strings"
+        ],
+        "methods": [
+          "supportsInterface(bytes4)",
+          "hasRole(bytes32,address)",
+          "getRoleAdmin(bytes32)",
+          "grantRole(bytes32,address)",
+          "revokeRole(bytes32,address)",
+          "renounceRole(bytes32,address)"
+        ],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [
+            {
+              "label": "_roles",
+              "offset": 0,
+              "slot": "0",
+              "type": "t_mapping(t_bytes32,t_struct(RoleData)19_storage)",
+              "contract": "AccessControl",
+              "src": "@openzeppelin/contracts/access/AccessControl.sol:55"
+            }
+          ],
+          "types": {
+            "t_address": {
+              "label": "address",
+              "numberOfBytes": "20"
+            },
+            "t_bool": {
+              "label": "bool",
+              "numberOfBytes": "1"
+            },
+            "t_bytes32": {
+              "label": "bytes32",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_address,t_bool)": {
+              "label": "mapping(address => bool)",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_bytes32,t_struct(RoleData)19_storage)": {
+              "label": "mapping(bytes32 => struct AccessControl.RoleData)",
+              "numberOfBytes": "32"
+            },
+            "t_struct(RoleData)19_storage": {
+              "label": "struct AccessControl.RoleData",
+              "members": [
+                {
+                  "label": "members",
+                  "type": "t_mapping(t_address,t_bool)",
+                  "offset": 0,
+                  "slot": "0"
+                },
+                {
+                  "label": "adminRole",
+                  "type": "t_bytes32",
+                  "offset": 0,
+                  "slot": "1"
+                }
+              ],
+              "numberOfBytes": "64"
+            }
+          },
+          "layoutVersion": "1.1",
+          "flat": true
+        }
+      },
+      "AccessControlEnumerable": {
+        "src": "@openzeppelin/contracts/access/AccessControlEnumerable.sol:13",
+        "inherit": [
+          "AccessControl",
+          "ERC165",
+          "IERC165",
+          "IAccessControlEnumerable",
+          "IAccessControl",
+          "Context"
+        ],
+        "libraries": [
+          "EnumerableSet"
+        ],
+        "methods": [
+          "supportsInterface(bytes4)",
+          "getRoleMember(bytes32,uint256)",
+          "getRoleMemberCount(bytes32)"
+        ],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [
+            {
+              "label": "_roles",
+              "offset": 0,
+              "slot": "0",
+              "type": "t_mapping(t_bytes32,t_struct(RoleData)19_storage)",
+              "contract": "AccessControl",
+              "src": "@openzeppelin/contracts/access/AccessControl.sol:55"
+            },
+            {
+              "label": "_roleMembers",
+              "offset": 0,
+              "slot": "1",
+              "type": "t_mapping(t_bytes32,t_struct(AddressSet)1115_storage)",
+              "contract": "AccessControlEnumerable",
+              "src": "@openzeppelin/contracts/access/AccessControlEnumerable.sol:16"
+            }
+          ],
+          "types": {
+            "t_address": {
+              "label": "address",
+              "numberOfBytes": "20"
+            },
+            "t_array(t_bytes32)dyn_storage": {
+              "label": "bytes32[]",
+              "numberOfBytes": "32"
+            },
+            "t_bool": {
+              "label": "bool",
+              "numberOfBytes": "1"
+            },
+            "t_bytes32": {
+              "label": "bytes32",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_address,t_bool)": {
+              "label": "mapping(address => bool)",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_bytes32,t_struct(AddressSet)1115_storage)": {
+              "label": "mapping(bytes32 => struct EnumerableSet.AddressSet)",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_bytes32,t_struct(RoleData)19_storage)": {
+              "label": "mapping(bytes32 => struct AccessControl.RoleData)",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_bytes32,t_uint256)": {
+              "label": "mapping(bytes32 => uint256)",
+              "numberOfBytes": "32"
+            },
+            "t_struct(AddressSet)1115_storage": {
+              "label": "struct EnumerableSet.AddressSet",
+              "members": [
+                {
+                  "label": "_inner",
+                  "type": "t_struct(Set)814_storage",
+                  "offset": 0,
+                  "slot": "0"
+                }
+              ],
+              "numberOfBytes": "64"
+            },
+            "t_struct(RoleData)19_storage": {
+              "label": "struct AccessControl.RoleData",
+              "members": [
+                {
+                  "label": "members",
+                  "type": "t_mapping(t_address,t_bool)",
+                  "offset": 0,
+                  "slot": "0"
+                },
+                {
+                  "label": "adminRole",
+                  "type": "t_bytes32",
+                  "offset": 0,
+                  "slot": "1"
+                }
+              ],
+              "numberOfBytes": "64"
+            },
+            "t_struct(Set)814_storage": {
+              "label": "struct EnumerableSet.Set",
+              "members": [
+                {
+                  "label": "_values",
+                  "type": "t_array(t_bytes32)dyn_storage",
+                  "offset": 0,
+                  "slot": "0"
+                },
+                {
+                  "label": "_indexes",
+                  "type": "t_mapping(t_bytes32,t_uint256)",
+                  "offset": 0,
+                  "slot": "1"
+                }
+              ],
+              "numberOfBytes": "64"
+            },
+            "t_uint256": {
+              "label": "uint256",
+              "numberOfBytes": "32"
+            }
+          },
+          "layoutVersion": "1.1",
+          "flat": true
+        }
+      },
+      "IAccessControl": {
+        "src": "@openzeppelin/contracts/access/IAccessControl.sol:9",
+        "inherit": [],
+        "libraries": [],
+        "methods": [
+          "hasRole(bytes32,address)",
+          "getRoleAdmin(bytes32)",
+          "grantRole(bytes32,address)",
+          "revokeRole(bytes32,address)",
+          "renounceRole(bytes32,address)"
+        ],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [],
+          "types": {},
+          "layoutVersion": "1.1",
+          "flat": false
+        }
+      },
+      "IAccessControlEnumerable": {
+        "src": "@openzeppelin/contracts/access/IAccessControlEnumerable.sol:11",
+        "inherit": [
+          "IAccessControl"
+        ],
+        "libraries": [],
+        "methods": [
+          "getRoleMember(bytes32,uint256)",
+          "getRoleMemberCount(bytes32)"
+        ],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [],
+          "types": {},
+          "layoutVersion": "1.1",
+          "flat": false
+        }
+      },
+      "Context": {
+        "src": "@openzeppelin/contracts/utils/Context.sol:16",
+        "inherit": [],
+        "libraries": [],
+        "methods": [],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [],
+          "types": {},
+          "layoutVersion": "1.1",
+          "flat": false
+        }
+      },
+      "Strings": {
+        "src": "@openzeppelin/contracts/utils/Strings.sol:9",
+        "version": {
+          "withMetadata": "e3240dcae25e3e4842cb1fc35a3386132219e2d6d70f8aed1d58e5b565586571",
+          "withoutMetadata": "08d24783a787f8a51dea0c166bb6f91a4f0865e02d03d749f102d332e6ead0ff",
+          "linkedWithoutMetadata": "08d24783a787f8a51dea0c166bb6f91a4f0865e02d03d749f102d332e6ead0ff"
+        },
+        "inherit": [],
+        "libraries": [],
+        "methods": [],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [],
+          "types": {},
+          "layoutVersion": "1.1",
+          "flat": false
+        }
+      },
+      "ERC165": {
+        "src": "@openzeppelin/contracts/utils/introspection/ERC165.sol:22",
+        "inherit": [
+          "IERC165"
+        ],
+        "libraries": [],
+        "methods": [
+          "supportsInterface(bytes4)"
+        ],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [],
+          "types": {},
+          "layoutVersion": "1.1",
+          "flat": false
+        }
+      },
+      "IERC165": {
+        "src": "@openzeppelin/contracts/utils/introspection/IERC165.sol:15",
+        "inherit": [],
+        "libraries": [],
+        "methods": [
+          "supportsInterface(bytes4)"
+        ],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [],
+          "types": {},
+          "layoutVersion": "1.1",
+          "flat": false
+        }
+      },
+      "EnumerableSet": {
+        "src": "@openzeppelin/contracts/utils/structs/EnumerableSet.sol:30",
+        "version": {
+          "withMetadata": "387bcea3e215d926a2678160c9d3198aaf50eec4f864ad96864b3ebf01cc36b4",
+          "withoutMetadata": "08d24783a787f8a51dea0c166bb6f91a4f0865e02d03d749f102d332e6ead0ff",
+          "linkedWithoutMetadata": "08d24783a787f8a51dea0c166bb6f91a4f0865e02d03d749f102d332e6ead0ff"
+        },
+        "inherit": [],
+        "libraries": [],
+        "methods": [],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [],
+          "types": {},
+          "layoutVersion": "1.1",
+          "flat": false
+        }
+      },
+      "IEtherbase": {
+        "src": "sfuel/contracts/interfaces/IEtherbase.sol:4",
+        "inherit": [],
+        "libraries": [],
+        "methods": [
+          "()",
+          "retrieve(address payable)",
+          "partiallyRetrieve(address payable,uint256)"
+        ],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [],
+          "types": {},
+          "layoutVersion": "1.1",
+          "flat": false
+        }
+      },
+      "SFuelUsers": {
+        "src": "sfuel/contracts/s_fuel/SFuelUsers.sol:29",
+        "version": {
+          "withMetadata": "e9222a572aa9d0430650bf0a72147992da2372b7ecd5a608cca7833ebfb535e4",
+          "withoutMetadata": "87c364a3389a8dffa03d287fa663deb82d1ff71f4720a51294389b0440563559",
+          "linkedWithoutMetadata": "87c364a3389a8dffa03d287fa663deb82d1ff71f4720a51294389b0440563559"
+        },
+        "inherit": [
+          "AccessControlEnumerable",
+          "AccessControl",
+          "ERC165",
+          "IERC165",
+          "IAccessControlEnumerable",
+          "IAccessControl",
+          "Context"
+        ],
+        "libraries": [],
+        "methods": [
+          "()",
+          "retrieveSFuel()",
+          "getBalance()",
+          "getContractBalance()",
+          "()",
+          "()",
+          "fillContract()"
+        ],
+        "linkReferences": [],
+        "errors": [
+          {
+            "kind": "constructor",
+            "contract": "SFuelUsers",
+            "src": "sfuel/contracts/s_fuel/SFuelUsers.sol:67"
+          },
+          {
+            "kind": "state-variable-assignment",
+            "name": "MIN_USER_BALANCE",
+            "src": "sfuel/contracts/s_fuel/SFuelUsers.sol:48"
+          },
+          {
+            "kind": "state-variable-assignment",
+            "name": "MIN_CONTRACT_BALANCE",
+            "src": "sfuel/contracts/s_fuel/SFuelUsers.sol:49"
+          },
+          {
+            "kind": "state-variable-assignment",
+            "name": "isPaused",
+            "src": "sfuel/contracts/s_fuel/SFuelUsers.sol:51"
+          }
+        ],
+        "layout": {
+          "storage": [
+            {
+              "label": "_roles",
+              "offset": 0,
+              "slot": "0",
+              "type": "t_mapping(t_bytes32,t_struct(RoleData)19_storage)",
+              "contract": "AccessControl",
+              "src": "@openzeppelin/contracts/access/AccessControl.sol:55"
+            },
+            {
+              "label": "_roleMembers",
+              "offset": 0,
+              "slot": "1",
+              "type": "t_mapping(t_bytes32,t_struct(AddressSet)1115_storage)",
+              "contract": "AccessControlEnumerable",
+              "src": "@openzeppelin/contracts/access/AccessControlEnumerable.sol:16"
+            },
+            {
+              "label": "MIN_USER_BALANCE",
+              "offset": 0,
+              "slot": "2",
+              "type": "t_uint256",
+              "contract": "SFuelUsers",
+              "src": "sfuel/contracts/s_fuel/SFuelUsers.sol:48"
+            },
+            {
+              "label": "MIN_CONTRACT_BALANCE",
+              "offset": 0,
+              "slot": "3",
+              "type": "t_uint256",
+              "contract": "SFuelUsers",
+              "src": "sfuel/contracts/s_fuel/SFuelUsers.sol:49"
+            },
+            {
+              "label": "isPaused",
+              "offset": 0,
+              "slot": "4",
+              "type": "t_bool",
+              "contract": "SFuelUsers",
+              "src": "sfuel/contracts/s_fuel/SFuelUsers.sol:51"
+            }
+          ],
+          "types": {
+            "t_address": {
+              "label": "address",
+              "numberOfBytes": "20"
+            },
+            "t_array(t_bytes32)dyn_storage": {
+              "label": "bytes32[]",
+              "numberOfBytes": "32"
+            },
+            "t_bool": {
+              "label": "bool",
+              "numberOfBytes": "1"
+            },
+            "t_bytes32": {
+              "label": "bytes32",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_address,t_bool)": {
+              "label": "mapping(address => bool)",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_bytes32,t_struct(AddressSet)1115_storage)": {
+              "label": "mapping(bytes32 => struct EnumerableSet.AddressSet)",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_bytes32,t_struct(RoleData)19_storage)": {
+              "label": "mapping(bytes32 => struct AccessControl.RoleData)",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_bytes32,t_uint256)": {
+              "label": "mapping(bytes32 => uint256)",
+              "numberOfBytes": "32"
+            },
+            "t_struct(AddressSet)1115_storage": {
+              "label": "struct EnumerableSet.AddressSet",
+              "members": [
+                {
+                  "label": "_inner",
+                  "type": "t_struct(Set)814_storage",
+                  "offset": 0,
+                  "slot": "0"
+                }
+              ],
+              "numberOfBytes": "64"
+            },
+            "t_struct(RoleData)19_storage": {
+              "label": "struct AccessControl.RoleData",
+              "members": [
+                {
+                  "label": "members",
+                  "type": "t_mapping(t_address,t_bool)",
+                  "offset": 0,
+                  "slot": "0"
+                },
+                {
+                  "label": "adminRole",
+                  "type": "t_bytes32",
+                  "offset": 0,
+                  "slot": "1"
+                }
+              ],
+              "numberOfBytes": "64"
+            },
+            "t_struct(Set)814_storage": {
+              "label": "struct EnumerableSet.Set",
+              "members": [
+                {
+                  "label": "_values",
+                  "type": "t_array(t_bytes32)dyn_storage",
+                  "offset": 0,
+                  "slot": "0"
+                },
+                {
+                  "label": "_indexes",
+                  "type": "t_mapping(t_bytes32,t_uint256)",
+                  "offset": 0,
+                  "slot": "1"
+                }
+              ],
+              "numberOfBytes": "64"
+            },
+            "t_uint256": {
+              "label": "uint256",
+              "numberOfBytes": "32"
+            }
+          },
+          "layoutVersion": "1.1",
+          "flat": true
+        }
+      }
+    },
+    {
       "AccessControlEnumerableUpgradeable": {
         "src": "@openzeppelin/contracts-upgradeable/access/AccessControlEnumerableUpgradeable.sol:14",
         "inherit": [

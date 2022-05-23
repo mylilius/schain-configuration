@@ -4,14 +4,19 @@
   "description": "SKALE Chain Configuration",
   "main": "index.js",
   "scripts": {
+    "init": "./scripts/prepare.sh",
     "install:multisg-cli": "./install_msg.sh",
     "multisig:assign": "tsc && node ./build/scripts/multisig/multisig.js",
     "roles:check": "tsc && node ./build/scripts/roles/roles.js",
-    "sfuel:deploy:contracts": "tsc && npx hardhat run --network localhost ./sfuel/scripts/deploy_s_fuel_contracts.js",
+    "sfuel:deploy:contracts": "tsc && npx hardhat run --network chainA ./sfuel/scripts/deploy_s_fuel_contracts.js",
     "sfuel:deploy:users": "tsc && npx hardhat run --network localhost ./sfuel/scripts/deploy_s_fuel_users.js",
     "nfts:deploy": "tsc && npx hardhat run --network localhost ./nfts/scripts/deploy_nfts.js",
     "fcd:enable": "tsc && node ./build/scripts/free_contract_deployment/enable.js",
-    "fcd:disable": "tsc && node ./build/scripts/free_contract_deployment/disable.js"
+    "fcd:disable": "tsc && node ./build/scripts/free_contract_deployment/disable.js",
+    "skale:assign:etherbase:contract": "tsc && node ./build/scripts/skale/assign_contract_ether_manager_role.js",
+    "skale:assign:etherbase:users": "tsc && node ./build/scripts/skale/assign_users_ether_manager_role.js",
+    "msg:etherbase:default": "tsc && node ./build/services/etherbase/assign_default_admin_role.js",
+    "msg:etherbase:ether": "tsc && node ./build/services/etherbase/assign_ether_manager_role.js"
   },
   "author": "TheGreatAxios",
   "license": "AGPL-3.0-or-later",
@@ -29,6 +34,7 @@
     "typescript": "^4.6.4"
   },
   "dependencies": {
+    "@ethersproject/contracts": "^5.6.1",
     "@openzeppelin/contracts": "^4.6.0",
     "@openzeppelin/contracts-upgradeable": "^4.6.0",
     "dotenv": "^16.0.1"

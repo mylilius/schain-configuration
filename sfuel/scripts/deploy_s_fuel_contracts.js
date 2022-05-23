@@ -43,7 +43,7 @@ async function main() {
     let result = {};
 
     const dir_length = FS.getDirLength(__dirname, 'contracts');
-    const file_name = `V${dir_length}_`;
+    let file_name = `V${dir_length}_`;
 
     let contractAddress;
     let contractInterface;

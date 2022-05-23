@@ -28,6 +28,7 @@ export * from './contract';
 export * from './network';
 export * from './networks';
 export * from './signer';
+export * from './wallet';
 export * from './web3';
 
 export * from './filestorage';

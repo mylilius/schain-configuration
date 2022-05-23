@@ -27,5 +27,7 @@
 export * from './abis';
 export * from './accounts';
 export * from './environment';
+export * from './layer_2';
 export * from './networks';
 export * from './predeployed';
+export * from './wallet';

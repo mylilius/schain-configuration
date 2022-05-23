@@ -113,8 +113,8 @@
       ]
     },
     "/Users/thegreataxios/MyLilius/infrastructure/blockchain/calypso/sfuel/contracts/s_fuel/SFuelUsers.sol": {
-      "lastModificationDate": 1653247806263,
-      "contentHash": "2910d2c0a0c0811c7ef282b3e897aaf5",
+      "lastModificationDate": 1653271299542,
+      "contentHash": "e87b0d9436b09f22c1c3a1a6d311aaad",
       "sourceName": "sfuel/contracts/s_fuel/SFuelUsers.sol",
       "solcConfig": {
         "version": "0.8.9",
@@ -141,9 +141,8 @@
         }
       },
       "imports": [
-        "@openzeppelin/contracts-upgradeable/access/AccessControlEnumerableUpgradeable.sol",
-        "@openzeppelin/contracts-upgradeable/utils/math/SafeMathUpgradeable.sol",
-        "../interfaces/IEtherbaseUpgradeable.sol"
+        "@openzeppelin/contracts/access/AccessControlEnumerable.sol",
+        "../interfaces/IEtherbase.sol"
       ],
       "versionPragmas": [
         "^0.8.0"
@@ -802,82 +801,6 @@
       ],
       "artifacts": [
         "OwnableUpgradeable"
-      ]
-    },
-    "/Users/thegreataxios/MyLilius/infrastructure/blockchain/calypso/sfuel/contracts/nfts/LiliNFT.sol": {
-      "lastModificationDate": 1653250247250,
-      "contentHash": "af79e212156f9178d982179c73826f0c",
-      "sourceName": "sfuel/contracts/nfts/LiliNFT.sol",
-      "solcConfig": {
-        "version": "0.8.9",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "../interfaces/ILiliNFT.sol",
-        "@openzeppelin/contracts-upgradeable/token/ERC721/ERC721Upgradeable.sol",
-        "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol"
-      ],
-      "versionPragmas": [],
-      "artifacts": [
-        "LiliNFT"
-      ]
-    },
-    "/Users/thegreataxios/MyLilius/infrastructure/blockchain/calypso/sfuel/contracts/interfaces/ILiliNFT.sol": {
-      "lastModificationDate": 1653249236063,
-      "contentHash": "bb851b3f36e73c489d723fb5a963ddc4",
-      "sourceName": "sfuel/contracts/interfaces/ILiliNFT.sol",
-      "solcConfig": {
-        "version": "0.8.9",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "@openzeppelin/contracts-upgradeable/token/ERC721/IERC721Upgradeable.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "ILiliNFT"
       ]
     },
     "/Users/thegreataxios/MyLilius/infrastructure/blockchain/calypso/node_modules/hardhat/console.sol": {

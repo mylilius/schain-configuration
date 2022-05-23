@@ -43,6 +43,17 @@
 		- [x] Contracts -> Upgradeable
 		- [x] Users -> Fixed
 		- [x] Users -> Upgradeable
+- [ ] Scripts/Services
+	- [x] Marionette Port
+	- [x] Multisig Port
+	- [x] Etherbase
+		- [x] Default Admin Role
+		- [x] Etherbase - predeploy only temporarily
+	- [ ] ConfigController
+		- [ ] Default Admin Role
+		- [ ] MTM Admin Role
+		- [ ] Deployer Role
+	- [ ] IMA? @CW
 - [x] Smart Contracts
 	- [x] SFuelContracts.sol
 	- [x] SFuelContractsUpgradeable.sol
