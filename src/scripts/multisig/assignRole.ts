@@ -44,9 +44,12 @@ function assignRole(assignee: string, contract: string, fn: string, chain: strin
 			_function = smartContract.callStatic.ETHER_MANAGER_ROLE();
 		}
 	} else if (contract === 'ConfigController') {
+		console.log("Config Controller");
 		if (role === 'DEFAULT_ADMIN_ROLE') {
+			console.log("Default Admin Role");
 			_function = smartContract.callStatic.DEFAULT_ADMIN_ROLE();
 		} else if (role === 'DEPLOYER_ROLE') {
+			console.log("Deployer Role");
 			_function = smartContract.callStatic.DEPLOYER_ROLE();
 		}
 	}

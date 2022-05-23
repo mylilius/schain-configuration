@@ -31,12 +31,16 @@ import fs from 'fs';
 class FileStorage {
 
 	static BASE_DIR: string = '../../../../outputs';
+	static CONTRACTS_BASE_DIR: string = '../../../outputs';
 	static ROLES: string = '/roles';
+	static CONTRACTS: string = '/contracts';
 
 	private _buildPath(dir: string, key: string): string {
 		switch (key) {
 		case 'roles':
-			return path.join(dir + FileStorage.BASE_DIR + FileStorage.ROLES); 
+			return path.join(dir + FileStorage.BASE_DIR + FileStorage.ROLES);
+		case 'contracts':
+			return path.join(dir + FileStorage.CONTRACTS_BASE_DIR + FileStorage.CONTRACTS);
 		default:
 			return '';
 		}
