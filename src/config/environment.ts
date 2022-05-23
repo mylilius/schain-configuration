@@ -68,5 +68,10 @@ export const ASSIGN_CONFIG_CONTROLLER_DEFAULT_ADMIN_ROLE: boolean = Boolean(proc
 export const ASSIGN_CONFIG_CONTROLLER_DEPLOYER_ADMIN_ROLE: boolean = Boolean(process.env.ASSIGN_CONFIG_CONTROLLER_DEPLOYER_ADMIN_ROLE === 'true') as boolean;
 export const ASSIGN_CONFIG_CONTROLLER_MTM_ADMIN_ROLE: boolean = Boolean(process.env.ASSIGN_CONFIG_CONTROLLER_MTM_ADMIN_ROLE === 'true') as boolean;
 
+/// Enable Free Contract Deployment Configuration
+export const ENABLE_FREE_CONTRACT_DEPLOYMENT: boolean = Boolean(process.env.ENABLE_FREE_CONTRACT_DEPLOYMENT === 'true') as boolean;
+export const ENABLE_FREE_CONTRACT_DEPLOYMENT_CHAINS: string = process.env.ENABLE_FREE_CONTRACT_DEPLOYMENT_CHAINS as string;
 
-
+/// Disable Free Contract Deployment Configuration
+export const DISABLE_FREE_CONTRACT_DEPLOYMENT: boolean = Boolean(process.env.DISABLE_FREE_CONTRACT_DEPLOYMENT === 'true') as boolean;
+export const DISABLE_FREE_CONTRACT_DEPLOYMENT_CHAINS: string = process.env.DISABLE_FREE_CONTRACT_DEPLOYMENT_CHAINS as string;

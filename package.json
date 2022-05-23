@@ -7,7 +7,9 @@
     "install:multisg-cli": "./install_msg.sh",
     "multisig:assign": "tsc && node ./build/scripts/multisig/multisig.js",
     "roles:check": "tsc && node ./build/scripts/roles/roles.js",
-    "sfuel:deploy": "tsc && npx hardhat run --network localhost ./sfuel/scripts/deploy_s_fuel_contracts.js"
+    "sfuel:deploy": "tsc && npx hardhat run --network localhost ./sfuel/scripts/deploy_s_fuel_contracts.js",
+    "fcd:enable": "tsc && node ./build/scripts/free_contract_deployment/enable.js",
+    "fcd:disable": "tsc && node ./build/scripts/free_contract_deployment/disable.js"
   },
   "author": "TheGreatAxios",
   "license": "AGPL-3.0-or-later",
