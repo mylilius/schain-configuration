@@ -18,7 +18,7 @@
  */
 
 /**
- * @file encodeData.ts
+ * @file assignRole.ts
  * @copyright TheGreatAxios | Lilius, Inc 2022-Present
  * 
  * Questions regarding the pseudonym of TheGreatAxios can be forwarded to thegreataxios@mylilius.com
