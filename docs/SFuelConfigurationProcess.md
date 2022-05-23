@@ -13,12 +13,17 @@
    - Recommendation: Launch the contracts with a single owner before the chain is given to the public. Once launched assign a mutlisig wallet on the SKALE chain to be the <b>DEFAULT_ADMIN_ROLE</b> and then utilize that wallet to remove the initial owner. More scripts will be added in the future to handle this via scripting instead of encoded data via the UI.
 
 ### Choosing Fixed
-   1. Set the [.env](../.env) files variable CONTRACT_MODE to be ```fixed```
-### Choosing Upgradeable
+   6. Set the [.env](../.env) files variable CONTRACT_MODE to be <b>```fixed```</b>
 
-   4. Run ```npm run sfuel:deploy:contracts``` to deploy the SFuelContracts contract
+
+### Choosing Upgradeable
+   6. Set the [.env](../.env) files variable CONTRACT_MODE to be <b>```upgradeable```</b>
+
+### Deploying Contracts
+   7. The network is set by default to localhost in the npm script for testing purposes. Run ```npx hardhat node``` in the root directory to deploy a local ethereum node for quick testing, or switch <i>localhost<i> to <i>chainA</i> or <i>chainB</i> if using a production or test SKALE chain.
+   8. Run ```npm run sfuel:deploy:contracts``` to deploy the SFuelContracts contract
 
       ###### Optional Step: Use if you want to whitelist users for additional S-Fuel
 
-   5. Run ```npm run sfuel:deploy:users``` to deploy the SFuelUsers contract
+   9. Run ```npm run sfuel:deploy:users``` to deploy the SFuelUsers contract
 

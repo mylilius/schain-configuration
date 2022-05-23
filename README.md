@@ -43,11 +43,6 @@
 		- [x] Contracts -> Upgradeable
 		- [x] Users -> Fixed
 		- [x] Users -> Upgradeable
-	- [ ] EtherbaseAssign.ts
-		- [ ] Utilizes Predeploy MultiSig to assign SFuelDeployment to Etherbase as owner
-	- [ ] SFuelMalicioius.ts
-		- [ ] Deploys Copy of SFuelDeploy that is not whitelisted from randomly generated user
-		- [ ] Attempts to pull S-Fuel
 - [x] Smart Contracts
 	- [x] SFuelContracts.sol
 	- [x] SFuelContractsUpgradeable.sol
@@ -55,11 +50,18 @@
 	- [x] SFuelUsersUpgradeable.sol
 	- [x] NFTFixed -> LiliNFT.sol
 	- [x] NFTUpgradeable -> LiliNFTUpgradeable.sol
-
+- [ ] Documentation
+   - [ ] [Assign Roles](/docs/AssignRole.md)
+   - [x] [Execute Gnosis Safe UI Tx](/docs/ExecuteTransactionGnosisSafeUI.md)
+   - [x] [Free Contract Deployment](/docs/FreeContractDeployment.md)
+   - [x] [Initial Configuration](/docs/InitialConfigurationProcess.md)
+   - [x] [SFuel Information](/docs/SFuel.md)
+   - [x] [SFuel Configuration](/docs/SFuelConfigurationProcess.md)
 - [ ] Testing
 	- [ ] Smart Contracts
 	- [ ] Scripts
 	- [ ] Automate Role Checks
+
 ### Licenses
 
 All abis and addresses are public domain due to the nature of blockchain. 
