@@ -38,14 +38,28 @@
 		- [ ] Check Role on sChain
 	- [ ] FreeContractDeployment.ts
 		- [ ] Enables/Disables Free Contract Deployment using PDMSG
-	- [ ] SFuelDeploy.ts
-		- [ ] Utilizes Pre Deployed MultiSig to Deploy SFuelContract
+	- [x] SFuel Contract Deployment
+		- [x] Contracts -> Fixed
+		- [x] Contracts -> Upgradeable
+		- [x] Users -> Fixed
+		- [x] Users -> Upgradeable
 	- [ ] EtherbaseAssign.ts
 		- [ ] Utilizes Predeploy MultiSig to assign SFuelDeployment to Etherbase as owner
 	- [ ] SFuelMalicioius.ts
 		- [ ] Deploys Copy of SFuelDeploy that is not whitelisted from randomly generated user
 		- [ ] Attempts to pull S-Fuel
+- [x] Smart Contracts
+	- [x] SFuelContracts.sol
+	- [x] SFuelContractsUpgradeable.sol
+	- [x] SFuelUsers.sol
+	- [x] SFuelUsersUpgradeable.sol
+	- [x] NFTFixed -> LiliNFT.sol
+	- [x] NFTUpgradeable -> LiliNFTUpgradeable.sol
 
+- [ ] Testing
+	- [ ] Smart Contracts
+	- [ ] Scripts
+	- [ ] Automate Role Checks
 ### Licenses
 
 All abis and addresses are public domain due to the nature of blockchain. 
