@@ -3,7 +3,7 @@
 echo "Starting Install For SKALE MutliSig-Cli"
 
 # 1. Move into packages folder
-cd packages
+cd ../
 # 2. Clone Repo
 git clone https://github.com/skalenetwork/multisigwallet-cli
 
