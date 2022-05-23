@@ -19,7 +19,7 @@
  *   along with LiliNFT.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import "../interfaces/ILiliNFT.sol";
+import "./interfaces/ILiliNFT.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
@@ -37,7 +37,7 @@ contract LiliNFT is ERC721, Ownable, ILiliNFT {
 		_;
 	}
 
-    constructor(address _address) {
+    constructor(address _address) ERC721(NAME, SYMBOL) {
         sFuel = _address;
     }
 
@@ -47,7 +47,7 @@ contract LiliNFT is ERC721, Ownable, ILiliNFT {
         sFuel = _address;
     }
 
-    function safeMintWithSFuel(address _reciever) external topUpSFuel {
+    function safeMintWithSFuel(address _reciever) external override topUpSFuel {
         require(_reciever != address(0), "Invalid Minter");
         super._safeMint(_reciever, tokenId);
         tokenId = tokenId + 1;       

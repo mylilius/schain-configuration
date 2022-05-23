@@ -26,18 +26,18 @@
 ###### PDMSG = Pre Deployed Multi Sig
 
 - [ ] Scripts
-	- [x] Roles.ts
+	- [x] roles
 		- [x] Checks Core Roles on Mainnet
 		- [x] Checks Core Roles on sChain
 		- [x] Chain A Prints to Outputs
 		- [x] Chain B Chain Prints to Outputs
-	- [ ] L1Assigner.ts
-		- [x] Uses mutlisig to generate encodeData for assigning a role on sChain to predeployed multisig
+	- [ ] L1Assigner (Assign Roles L1)
+		- [x] Uses mutlisig to generate encodeData for assigning a role on sChain to pre-deployed multisig
 		- [ ] A. Use Gnosis Safe ABI to send encodedTx
 		- [ ] B. Use Gnosis Safe UI to send EncodedTx
 		- [ ] Check Role on sChain
-	- [ ] FreeContractDeployment.ts
-		- [ ] Enables/Disables Free Contract Deployment using PDMSG
+	- [x] free_contract_deployment (Free Contract Deployment)
+		- [x] Enables/Disables Free Contract Deployment using MultiSig L1
 	- [x] SFuel Contract Deployment
 		- [x] Contracts -> Fixed
 		- [x] Contracts -> Upgradeable

@@ -19,7 +19,7 @@
  *   along with LiliNFT.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import "../interfaces/ILiliNFTUpgradeable.sol";
+import "./interfaces/ILiliNFTUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/token/ERC721/ERC721Upgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 

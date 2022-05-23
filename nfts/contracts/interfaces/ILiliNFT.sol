@@ -26,5 +26,6 @@ import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 interface ILiliNFT is IERC721 {
 
     function updateSFuelAddress(address _address) external;
+    function safeMintWithSFuel(address _reciever) external;
 
 }
