@@ -22,12 +22,11 @@
 
 pragma solidity ^0.8.0;
 
-import "@openzeppelin/contracts-upgradeable/access/AccessControlEnumerableUpgradeable.sol";
-import "@openzeppelin/contracts-upgradeable/utils/math/SafeMathUpgradeable.sol";
+import "@openzeppelin/contracts/access/AccessControlEnumerable.sol";
 
-import "../interfaces/IEtherbaseUpgradeable.sol";
+import "../interfaces/IEtherbase.sol";
 
-contract SFuelUsers is AccessControlEnumerableUpgradeable {
+contract SFuelUsers is AccessControlEnumerable {
 
 	/// @notice This is the role for a whitelisted contract
 	/// @dev Required for a contract to ping onlyWhitelisted
@@ -66,7 +65,6 @@ contract SFuelUsers is AccessControlEnumerableUpgradeable {
 	/// Add Contract to Etherbase ETHER_MANAGER_ROLE
 	/// Seed Contract with fillContract();
 	constructor() {
-		AccessControlUpgradeable.__AccessControl_init();
 		_setupRole(WHITELIST_MANAGER_ROLE, msg.sender);
 		_setupRole(CONTRACT_MANAGER_ROLE, msg.sender);
 		_setupRole(ACTIVE_MANAGER_ROLE, msg.sender);

@@ -21,12 +21,11 @@
 
 pragma solidity ^0.8.0;
 
-import "@openzeppelin/contracts-upgradeable/access/AccessControlEnumerableUpgradeable.sol";
-import "@openzeppelin/contracts-upgradeable/utils/math/SafeMathUpgradeable.sol";
+import "@openzeppelin/contracts/access/AccessControlEnumerable.sol";
+import "@openzeppelin/contracts/access/IAccessControlEnumerable.sol";
+import "../interfaces/IEtherbase.sol";
 
-import "../interfaces/IEtherbaseUpgradeable.sol";
-
-contract SFuelContracts is AccessControlEnumerableUpgradeable {
+contract SFuelContracts is AccessControlEnumerable {
 
 	/// @notice This is the role for a whitelisted contract
 	/// @dev Required for a contract to ping onlyWhitelisted
@@ -45,10 +44,10 @@ contract SFuelContracts is AccessControlEnumerableUpgradeable {
 	/// @dev This should ideally be defined to a multisig
 	bytes32 public constant ACTIVE_MANAGER_ROLE = keccak256('ACTIVE_MANAGER_ROLE');
 
-	uint256 private MIN_USER_BALANCE = 1000000000;
-	uint256 private MIN_CONTRACT_BALANCE = MIN_USER_BALANCE * 10 ** 6;
+	uint256 private MIN_USER_BALANCE;
+	uint256 private MIN_CONTRACT_BALANCE;
 
-	bool isPaused = false;
+	bool isPaused;
 	/**
 	*
 	* Events
@@ -65,11 +64,13 @@ contract SFuelContracts is AccessControlEnumerableUpgradeable {
 	/// Add Contract to Etherbase ETHER_MANAGER_ROLE
 	/// Seed Contract with fillContract();
 	constructor() {
-		AccessControlUpgradeable.__AccessControl_init();
-		_setupRole(WHITELIST_MANAGER_ROLE, msg.sender);
-		_setupRole(CONTRACT_MANAGER_ROLE, msg.sender);
-		_setupRole(ACTIVE_MANAGER_ROLE, msg.sender);
-		_setupRole(DEFAULT_ADMIN_ROLE, msg.sender);
+		_grantRole(WHITELIST_MANAGER_ROLE, msg.sender);
+		_grantRole(CONTRACT_MANAGER_ROLE, msg.sender);
+		_grantRole(ACTIVE_MANAGER_ROLE, msg.sender);
+		
+		MIN_USER_BALANCE = 1000000000;
+		MIN_CONTRACT_BALANCE = MIN_USER_BALANCE * 10 ** 6;
+		isPaused = false;
 	}
 
 	/** Modifiers **/
@@ -133,7 +134,7 @@ contract SFuelContracts is AccessControlEnumerableUpgradeable {
 	}
 	
 	
-	/** ETHERBASE FUNCTIONS */
+	// /** ETHERBASE FUNCTIONS */
     function _getEtherbase() internal pure returns (IEtherbase) {
         return IEtherbase(_getEtherbaseAddress());
     }
