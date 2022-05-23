@@ -38,7 +38,7 @@ async function main() {
     try {
         let multi_sig_wallet: MultiSigWallet = new MultiSigWallet();
         const ROLE_HASH = await multi_sig_wallet.getRole(CONTRACT, ROLE);
-        await assignRoleMultisigWallet(multi_sig_wallet, CONTRACT, FUNCTION, <any>[ROLE_HASH, Config.MULTI_SIG]);
+        await assignRoleMultisigWallet(multi_sig_wallet, CONTRACT, FUNCTION, <any>[ROLE_HASH, Config.ASSIGN_ETHER_MANAGER_ROLE_ADDRESS]);
     } catch (err) {
         throw new Error("Error Assigning ETHER_MANAGER_ROLE Etherbase");
     }

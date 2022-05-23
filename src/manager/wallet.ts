@@ -125,20 +125,32 @@ class MultiSigWallet {
     
     /// Derived SKALE Network under AGPL-3.0 with modifications
     public async submitViaMultiSig(contractName: string, func: string, params: any[]) {
+        console.log("Params", params);
         const msgWallet: Contract = await this._getMultiSigWallet();
         let receipt;
         const destinationContract = await this.getDestinationContract(contractName);
-    
+        console.log(destinationContract);
         console.log(msgWallet);
         try {
             receipt = await (await msgWallet.submitTransaction(
                 destinationContract.address,
-                '100000',
+                '0',
                 destinationContract.interface.encodeFunctionData(
                     func,
                     params
-                ), { gasLimit: 3000000 }
+                ), { gasLimit: 4000000 }
             )).wait();
+
+            console.log("Receipt: ", receipt);
+            console.log("--------------EVENTS--------------")
+            for (let event of receipt.events) {
+                if (event.event != undefined) {
+                    console.log(`${event.event}(${event.args})`);
+                }
+            }
+            console.log("----------------------------------")
+            console.log(`Gas used: ${receipt.gasUsed}`)
+            console.log(`Tx hash: ${receipt.transactionHash}`)
         } catch (err: any) {
             throw new Error(err);
         }
