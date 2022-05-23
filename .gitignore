@@ -10,5 +10,8 @@ sfuel/cache
 
 # Python
 /venv
+venv
 /data
+data
 /cache
+cache
