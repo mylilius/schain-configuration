@@ -65,6 +65,8 @@
 All abis and addresses are public domain due to the nature of blockchain. 
 The code in this repository is licensed under AGPL-3.0-or-later from Lilius, Inc and the author TheGreatAxios.
 
-The smart contract ABIs in src/config/abis.ts derive from smart contracts from [SKALE Network](https://github.com/skalenetwork) which are also licensed under AGPL-3.0-or-later.
+The smart contract ABIs in src/config/abis.ts and other interfaces throughout derive from smart contracts from [SKALE Network](https://github.com/skalenetwork) which are also licensed under AGPL-3.0-or-later.
+
+Other interfaces and contracts derive from OpenZeppelin and are licensed under their licensing which is MIT.
 
 By using this repository and any of the code you agree to the license found in LICENSE.
