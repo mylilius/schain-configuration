@@ -6,12 +6,18 @@
   "scripts": {
     "install:multisg-cli": "./install_msg.sh",
     "multisig:assign": "tsc && node ./build/scripts/multisig/multisig.js",
-    "roles:check": "tsc && node ./build/scripts/roles/roles.js"
+    "roles:check": "tsc && node ./build/scripts/roles/roles.js",
+    "sfuel:deploy": "tsc && npx hardhat run --network localhost ./sfuel/scripts/deploy_s_fuel_contracts.js"
   },
   "author": "TheGreatAxios",
   "license": "AGPL-3.0-or-later",
   "devDependencies": {
+    "@nomiclabs/hardhat-ethers": "^2.0.6",
+    "@nomiclabs/hardhat-waffle": "^2.0.3",
+    "@openzeppelin/hardhat-upgrades": "^1.17.0",
     "@types/node": "^17.0.35",
+    "ethers": "^5.6.7",
+    "hardhat": "^2.9.6",
     "nodemon": "^2.0.16",
     "rimraf": "^3.0.2",
     "ts-node": "^10.7.0",
@@ -19,7 +25,8 @@
     "typescript": "^4.6.4"
   },
   "dependencies": {
-    "dotenv": "^16.0.1",
-    "ethers": "^5.6.6"
+    "@openzeppelin/contracts": "^4.6.0",
+    "@openzeppelin/contracts-upgradeable": "^4.6.0",
+    "dotenv": "^16.0.1"
   }
 }
