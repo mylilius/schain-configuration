@@ -10,7 +10,7 @@ describe('S-Fuel Access Test V1', () => {
     let nft1, nft2, sfuel, provider;
     let account;
     before(async() => {
-        nft1 = JSON.parse(await fs.readFile(join(__dirname, '../outputs', 'contracts', 'V29_LiliNFT.json'), 'utf-8'));
+        nft1 = JSON.parse(await fs.readFile(join(__dirname, '../outputs', 'contracts', 'V32_LiliNFT.json'), 'utf-8'));
         // nft2 = JSON.parse(await fs.readFile(join(__dirname, '../outputs', 'contracts', 'V16_LiliNFT.json'), 'utf-8'));
         sfuel = JSON.parse(await fs.readFile(join(__dirname, '../outputs', 'contracts', 'V27_SFuelContracts.json'), 'utf-8'));
         rpc = process.env.CHAIN_A_BASE_URL + '/' + process.env.CHAIN_A_VERSION + '/' + process.env.CHAIN_A_NAME;

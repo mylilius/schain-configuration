@@ -10,7 +10,7 @@ const WALLET_KEY: string = Config.MSG_WALLET_PRIVATE_KEY;
 async function main() {
     const provider = new ethers.providers.JsonRpcProvider(WALLET_RPC);
     const wallet = new ethers.Wallet(WALLET_KEY).connect(provider);
-    let nftContract: any = JSON.parse(await fs.readFile(join(__dirname, '../../../outputs', 'contracts', 'V29_LiliNFT.json'), 'utf-8'));
+    let nftContract: any = JSON.parse(await fs.readFile(join(__dirname, '../../../outputs', 'contracts', 'V32_LiliNFT.json'), 'utf-8'));
     let sFuelContract: any = JSON.parse(await fs.readFile(join(__dirname, '../../../outputs', 'contracts', 'V27_SFuelContracts.json'), 'utf-8'));
     
     let addressToWhitelist = nftContract['address'];
@@ -32,6 +32,7 @@ async function main() {
     console.log("Receipt: ", receipt);
 
     console.log("Has Role Check");
+    
     let hasRole = await contract.hasRole(IS_WHITELISTED_CONTRACT, addressToWhitelist);
     console.log("Has Role: ", hasRole);
 }
