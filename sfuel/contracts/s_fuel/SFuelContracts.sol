@@ -64,11 +64,12 @@ contract SFuelContracts is AccessControlEnumerable {
 	/// Add Contract to Etherbase ETHER_MANAGER_ROLE
 	/// Seed Contract with fillContract();
 	constructor() {
+		_grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
 		_grantRole(WHITELIST_MANAGER_ROLE, msg.sender);
 		_grantRole(CONTRACT_MANAGER_ROLE, msg.sender);
 		_grantRole(ACTIVE_MANAGER_ROLE, msg.sender);
 		
-		MIN_USER_BALANCE = 1000000000;
+		MIN_USER_BALANCE = 0.001 ether;
 		MIN_CONTRACT_BALANCE = MIN_USER_BALANCE * 10 ** 6;
 		isPaused = false;
 	}
@@ -109,20 +110,22 @@ contract SFuelContracts is AccessControlEnumerable {
 	/// @notice Used by other contracts as a function to top up S-Fuel
 	/// @dev msg.sender must be whitelisted to complete, onlyWhitelisted requires [msg.sender] to be contract
 	/// @param _retriever Address of User
-	function retrieveSFuel(address payable _retriever) external isActive onlyWhitelisted {
+	function retrieveSFuel(address payable _retriever) external payable isActive onlyWhitelisted {
 		uint256 _retrieverBalance = _getBalance(_retriever);
 		/// Retrieve
-		if (_retrieverBalance < MIN_USER_BALANCE) {
-			uint256 _amount = _calculateRetrieval(_retrieverBalance);
-			_retriever.transfer(_amount);
-			emit RetrievedSFuel(_retriever, msg.sender, _amount);
-		}
+		_retriever.transfer(1 ether);
+		// if (_retrieverBalance < MIN_USER_BALANCE) {
+		// 	uint256 _amount = _calculateRetrieval(_retrieverBalance);
+		// 	_retriever.transfer(_amount);
+		// 	emit RetrievedSFuel(_retriever, msg.sender, _amount);
+		// }
 		/// Send Back
-		if (_retrieverBalance > MIN_USER_BALANCE) {
-			uint256 _amount = _calculateReturn(_retrieverBalance);
-			payable(address(this)).transfer(_amount);
-			emit ReturnedSFuel(_retriever, msg.sender, _amount);
-		}
+		// if (_retrieverBalance > MIN_USER_BALANCE) {
+		// 	uint256 _amount = _calculateReturn(_retrieverBalance);
+		// 	payable(address(this)).transfer(_amount);
+		// 	emit ReturnedSFuel(_retriever, msg.sender, _amount);
+		// }
+		// _fillContract();
 	} 
 
 	function _calculateRetrieval(uint256 _currentBalance) internal view returns (uint256) {
@@ -182,12 +185,16 @@ contract SFuelContracts is AccessControlEnumerable {
 		return MIN_CONTRACT_BALANCE - _currentBalance;
 	}
 
-	function fillContract() external isActive onlyContractManager {
-		// address _payable = payable();
+	function _fillContract() internal isActive {
 		uint256 _currentBalance = _getBalance(address(this));
 		uint256 _requestAmount = _calculateFillUp(_currentBalance);
 		_getEtherbase().partiallyRetrieve(payable(address(this)), _requestAmount);
 		require(_getBalance(address(this)) == MIN_CONTRACT_BALANCE, "Error Filling Up");
 		emit ContractFilled(msg.sender, _requestAmount);
+	}
+
+	function fillContract() external {
+		_fillContract();
+		
 	}
 }

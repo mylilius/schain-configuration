@@ -31,10 +31,22 @@ module.exports = {
 		  }
 	},
 	solidity: "0.8.9",
+	// paths: {
+	// 	sources: "./sfuel/contracts",
+	// 	// tests: "./sfuel/tests",
+	// 	cache: "./sfuel/cache",
+	// 	artifacts: "./sfuel/artifacts"
+	// },
+	// paths: {
+	// 	sources: "./sfuel/contracts",
+	// 	// tests: "./sfuel/tests",
+	// 	cache: "./sfuel/cache",
+	// 	artifacts: "./sfuel/artifacts"
+	// },
 	paths: {
-		sources: "./sfuel/contracts",
+		sources: "./nfts/contracts",
 		// tests: "./sfuel/tests",
-		cache: "./sfuel/cache",
-		artifacts: "./sfuel/artifacts"
-	  },
+		cache: "./nfts/cache",
+		artifacts: "./nfts/artifacts"
+	}
 }

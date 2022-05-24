@@ -22,7 +22,7 @@
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts-upgradeable/access/AccessControlEnumerableUpgradeable.sol";
-import "@openzeppelin/contracts-upgradeable/access/IAccessControlEnumerableUpgradeable.sol";
+
 import "../interfaces/IEtherbaseUpgradeable.sol";
 
 contract SFuelContractsUpgradeable is AccessControlEnumerableUpgradeable {
@@ -64,7 +64,7 @@ contract SFuelContractsUpgradeable is AccessControlEnumerableUpgradeable {
 	/// Add Contract to Etherbase ETHER_MANAGER_ROLE
 	/// Seed Contract with fillContract();
 	function initialize() external initializer {
-		AccessControlEnumerableUpgradeable.__AccessControlEnumerable_init();
+		// __AccessControlEnumerable_init_unchained();
 		_grantRole(WHITELIST_MANAGER_ROLE, msg.sender);
 		_grantRole(CONTRACT_MANAGER_ROLE, msg.sender);
 		_grantRole(ACTIVE_MANAGER_ROLE, msg.sender);

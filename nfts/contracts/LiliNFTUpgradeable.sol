@@ -25,7 +25,7 @@ import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 
 contract LiliNFTUpgradeable is ERC721Upgradeable, OwnableUpgradeable, ILiliNFTUpgradeable {
 
-    uint256 public tokenId = 0;
+    uint256 public tokenId;
 
     string constant public NAME = 'LiliNFT';
     string constant public SYMBOL = 'LILINFT';
@@ -42,6 +42,7 @@ contract LiliNFTUpgradeable is ERC721Upgradeable, OwnableUpgradeable, ILiliNFTUp
         OwnableUpgradeable.__Ownable_init();
         transferOwnership(_owner);
         sFuel = _sFuel;
+        tokenId = 0;
     }
 
     function updateSFuelAddress(address _address) external override onlyOwner {

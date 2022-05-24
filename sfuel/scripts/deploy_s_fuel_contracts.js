@@ -70,7 +70,7 @@ async function main() {
         const factory = await ethers.getContractFactory("SFuelContracts");
         const contract = await factory.deploy();
         await contract.deployTransaction.wait();
-        address = contract.address;
+        contractAddress = contract.address;
         contractInterface = contract.interface;
         result.isUpgradeable = false;
     }

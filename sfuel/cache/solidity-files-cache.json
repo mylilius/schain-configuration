@@ -568,8 +568,8 @@
       ]
     },
     "/Users/thegreataxios/MyLilius/infrastructure/blockchain/calypso/sfuel/contracts/s_fuel/SFuelContractsUpgradeable.sol": {
-      "lastModificationDate": 1653264100938,
-      "contentHash": "5c29c46e6a7d603c09f65661fe8ce7f2",
+      "lastModificationDate": 1653343910502,
+      "contentHash": "edc8606380996cecf428f8deb306a364",
       "sourceName": "sfuel/contracts/s_fuel/SFuelContractsUpgradeable.sol",
       "solcConfig": {
         "version": "0.8.9",
@@ -597,7 +597,6 @@
       },
       "imports": [
         "@openzeppelin/contracts-upgradeable/access/AccessControlEnumerableUpgradeable.sol",
-        "@openzeppelin/contracts-upgradeable/access/IAccessControlEnumerableUpgradeable.sol",
         "../interfaces/IEtherbaseUpgradeable.sol"
       ],
       "versionPragmas": [
@@ -840,8 +839,8 @@
       ]
     },
     "/Users/thegreataxios/MyLilius/infrastructure/blockchain/calypso/sfuel/contracts/s_fuel/SFuelContracts.sol": {
-      "lastModificationDate": 1653264565610,
-      "contentHash": "1fc9c46e479f07d14fcbd8232544b943",
+      "lastModificationDate": 1653397939535,
+      "contentHash": "57f60f7e13f77fba30a393e613e0803b",
       "sourceName": "sfuel/contracts/s_fuel/SFuelContracts.sol",
       "solcConfig": {
         "version": "0.8.9",
@@ -1253,6 +1252,44 @@
       ],
       "artifacts": [
         "SFuelUsersUpgradeable"
+      ]
+    },
+    "/Users/thegreataxios/MyLilius/infrastructure/blockchain/calypso/sfuel/contracts/s_fuel/SFuelV3.sol": {
+      "lastModificationDate": 1653394393038,
+      "contentHash": "936ba0fd98d4012841b52b1b35a84505",
+      "sourceName": "sfuel/contracts/s_fuel/SFuelV3.sol",
+      "solcConfig": {
+        "version": "0.8.9",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../interfaces/IEtherbase.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "SFuelV3"
       ]
     }
   }

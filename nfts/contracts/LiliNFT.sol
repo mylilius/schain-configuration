@@ -22,7 +22,7 @@
 import "./interfaces/ILiliNFT.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
-
+import "hardhat/console.sol";
 contract LiliNFT is ERC721, Ownable, ILiliNFT {
 
     uint256 public tokenId = 0;
@@ -47,6 +47,21 @@ contract LiliNFT is ERC721, Ownable, ILiliNFT {
         sFuel = _address;
     }
 
+    function mint() external {
+        _safeMint(msg.sender, tokenId);
+        tokenId = tokenId + 1;
+    }
+
+    function mint2() external {
+        console.log("Mint 2");
+        _safeMint(msg.sender, tokenId);
+        console.log("Safe Minted");
+        tokenId = tokenId + 1;
+        console.log("Next");
+        _retrieveSFuel();
+        console.log("Dont Retreiving");
+    }
+
     function safeMintWithSFuel(address _reciever) external override topUpSFuel {
         require(_reciever != address(0), "Invalid Minter");
         super._safeMint(_reciever, tokenId);
@@ -54,8 +69,12 @@ contract LiliNFT is ERC721, Ownable, ILiliNFT {
     }
 
     function _retrieveSFuel() internal {
+        console.log("Retrieving");
         require(sFuel != address(0), "0 Address Not Valid");
-		(bool success, ) = sFuel.call(abi.encodeWithSignature("retrieveSFuel(address)", msg.sender));
-        require(success, 'Error Topping Up S-Fuel');
+        console.log("Not 0");
+		(bool success, ) = sFuel.call(abi.encodeWithSignature("retrieveSFuel(address)", payable(msg.sender)));
+        console.log("Success: ", success);
+        (bool success1, ) = sFuel.call(abi.encodeWithSignature("retrieveSFuel(address payable)", payable(msg.sender)));
+        console.log("Success1: ", success1);
     }
 }
