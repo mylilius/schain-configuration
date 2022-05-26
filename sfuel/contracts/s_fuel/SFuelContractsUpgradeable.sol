@@ -17,15 +17,25 @@
  *
  *   You should have received a copy of the GNU Affero General Public License
  *   along with SFuelContractsUpgradeable.  If not, see <https://www.gnu.org/licenses/>.
+ *
+ *   Huge Acknowledgment to AP & CS for Guidance on this contract
  */
 
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts-upgradeable/access/AccessControlEnumerableUpgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/utils/math/SafeMathUpgradeable.sol";
 
 import "../interfaces/IEtherbaseUpgradeable.sol";
 
+/// @title SFuel Whitelisting Contract
+/// @author TheGreatAxios
+/// @notice Allows S-Fuel to be guideded to the proper entities
+/// @dev Utilizes Etherbase Under the Hood for Native S-Fuel
+/// @dev Upgradeable Version
 contract SFuelContractsUpgradeable is AccessControlEnumerableUpgradeable {
+
+	using SafeMathUpgradeable for uint256;
 
 	/// @notice This is the role for a whitelisted contract
 	/// @dev Required for a contract to ping onlyWhitelisted
@@ -39,15 +49,18 @@ contract SFuelContractsUpgradeable is AccessControlEnumerableUpgradeable {
 	/// @dev Required for an admin to manager whitelist
 	bytes32 public constant CONTRACT_MANAGER_ROLE = keccak256('CONTRACT_MANAGER_ROLE');
 
-	/// @notice This is the role required to manage the active state of the contract
-	/// @dev Required for an admin to pause the faucet
-	/// @dev This should ideally be defined to a multisig
-	bytes32 public constant ACTIVE_MANAGER_ROLE = keccak256('ACTIVE_MANAGER_ROLE');
-
+	/// @notice The amount a user should have after being topped up
+	/// @dev Can be updated by CONTRACT_MANAGER
 	uint256 private MIN_USER_BALANCE;
+
+	/// @notice Amount the contract should have after being filled up
+	/// @dev Can be updated by CONTRACT_MANAGER
 	uint256 private MIN_CONTRACT_BALANCE;
 
+	/// @notice Allows contract to be paused in case of emergency
+	/// @dev Can be updated by CONTRACT_MANAGER
 	bool isPaused;
+
 	/**
 	*
 	* Events
@@ -55,21 +68,15 @@ contract SFuelContractsUpgradeable is AccessControlEnumerableUpgradeable {
 	**/
 	event EtherDeposit(address indexed sender, uint256 value);
 	event ContractFilled(address indexed caller, uint256 value);
-	event RoleGranted(address indexed reciever, address indexed caller, bytes32 indexed role);
-	event RoleRemoved(address indexed removed, address indexed caller, bytes32 indexed role);
 	event RetrievedSFuel(address indexed reciever, address indexed whitelistedContract, uint256 amount);
 	event ReturnedSFuel(address indexed returner, address indexed whitelistedContract, uint256 amount);
 	
-	/// Post Deployment Requirements
-	/// Add Contract to Etherbase ETHER_MANAGER_ROLE
-	/// Seed Contract with fillContract();
 	function initialize() external initializer {
-		// __AccessControlEnumerable_init_unchained();
+		AccessControlEnumerableUpgradeable.__AccessControlEnumerable_init();
+		_grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
 		_grantRole(WHITELIST_MANAGER_ROLE, msg.sender);
 		_grantRole(CONTRACT_MANAGER_ROLE, msg.sender);
-		_grantRole(ACTIVE_MANAGER_ROLE, msg.sender);
 		
-
 		MIN_USER_BALANCE = 1000000000;
 		MIN_CONTRACT_BALANCE = MIN_USER_BALANCE * 10 ** 6;
 		isPaused = false;
@@ -90,12 +97,7 @@ contract SFuelContractsUpgradeable is AccessControlEnumerableUpgradeable {
 		require(hasRole(CONTRACT_MANAGER_ROLE, msg.sender), "CONTRACT_MANAGER_ROLE Required");
 		_;
 	}
-
-	modifier onlyActiveManager() {
-		require(hasRole(ACTIVE_MANAGER_ROLE, msg.sender), "ACTIVE_MANAGER_ROLE Required");
-		_;
-	}
-
+	
 	modifier onlyDefaultAdmin() {
 		require(hasRole(DEFAULT_ADMIN_ROLE, msg.sender), "DEFAULT_ADMIN_ROLE Required");
 		_;
@@ -106,65 +108,31 @@ contract SFuelContractsUpgradeable is AccessControlEnumerableUpgradeable {
 		_;
 	}
 	
-	/** Modifiers **/
+
 
 	/// @notice Used by other contracts as a function to top up S-Fuel
 	/// @dev msg.sender must be whitelisted to complete, onlyWhitelisted requires [msg.sender] to be contract
 	/// @param _retriever Address of User
-	function retrieveSFuel(address payable _retriever) external isActive onlyWhitelisted {
-		uint256 _retrieverBalance = _getBalance(_retriever);
-		/// Retrieve
-		if (_retrieverBalance < MIN_USER_BALANCE) {
-			uint256 _amount = _calculateRetrieval(_retrieverBalance);
-			_retriever.transfer(_amount);
-			emit RetrievedSFuel(_retriever, msg.sender, _amount);
+	function retrieveSFuel(address payable _retriever) external payable isActive onlyWhitelisted {
+		if (getBalance(_retriever) < MIN_USER_BALANCE) {
+			uint256 _retrievalAmount = MIN_USER_BALANCE.sub(getBalance(_retriever));
+			require(getBalance(address(this)) >= _retrievalAmount, "Insufficent Balance in Contract");
+			_retriever.transfer(_retrievalAmount);
+			emit RetrievedSFuel(_retriever, msg.sender, _retrievalAmount);
 		}
-		/// Send Back
-		if (_retrieverBalance > MIN_USER_BALANCE) {
-			uint256 _amount = _calculateReturn(_retrieverBalance);
-			payable(address(this)).transfer(_amount);
-			emit ReturnedSFuel(_retriever, msg.sender, _amount);
-		}
-	} 
-
-	function _calculateRetrieval(uint256 _currentBalance) internal view returns (uint256) {
-		return MIN_USER_BALANCE - _currentBalance;
 	}
 
-	function _calculateReturn(uint256 _currentBalance) internal view returns (uint256) {
-		return _currentBalance - MIN_USER_BALANCE;
-	}
-	
-	
-	// /** ETHERBASE FUNCTIONS */
-    function _getEtherbase() internal pure returns (IEtherbaseUpgradeable) {
-        return IEtherbaseUpgradeable(_getEtherbaseAddress());
+	/// @notice Gets Etherbase Instance
+	/// @return IEtherbase -> Instance to interact with
+    function _getEtherbase() internal pure returns (IEtherbase) {
+        return IEtherbase(payable(0xd2bA3e0000000000000000000000000000000000));
     }
 
-
-	function _getEtherbaseAddress() internal pure returns (address payable) {
-        return payable(0xd2bA3e0000000000000000000000000000000000);
-    }
-
-	/** END ETHERBASE Functions */
-
-	/// @notice Gets User Balance of S-Fuel
-	/// @dev Explain to a developer any extra details
-	/// @param _address Ethereum Address
-	/// @return uint256 returns their balance
-    function _getBalance(address _address) internal view returns (uint256) {
-        return _address.balance;
-    }
-	
-	/** Balance Check Functions */
-	/// Allows Checking of S-Fuel Balance
-	function getBalance() external view returns (uint256) {
-		return msg.sender.balance;
-	}
-
-	/// Allows Retrieval of This Contract Balance
-	function getContractBalance() external view returns (uint256) {
-		return address(this).balance;
+	/// @notice Retrieves S-Fuel Balance
+	/// @param _address ethereum address
+	/// @return uint256 balance
+	function getBalance(address _address) public view returns (uint256) {
+		return _address.balance;
 	}
 
 	receive() external payable {
@@ -178,18 +146,19 @@ contract SFuelContractsUpgradeable is AccessControlEnumerableUpgradeable {
 		}
     }
 	
-	/** "Administrative Functions" */
-	/*** Contract Manager Functions */
-	function _calculateFillUp(uint256 _currentBalance) internal view returns (uint256) {
-		return MIN_CONTRACT_BALANCE - _currentBalance;
+	/// @notice Allows CONTRACT_MANAGER to fill contract up
+	/// @dev Must have ETHER_MANAGER_ROLE assigned on Etherbase
+	function fillContract() external onlyContractManager {
+		uint256 _currentBalance = getBalance(address(this));
+		uint256 _requestAmount = MIN_CONTRACT_BALANCE.sub(_currentBalance);
+		_getEtherbase().partiallyRetrieve(payable(address(this)), _requestAmount);
+		require(getBalance(address(this)) == MIN_CONTRACT_BALANCE, "Error Filling Up");
+		emit ContractFilled(msg.sender, _requestAmount);
 	}
 
-	function fillContract() external isActive onlyContractManager {
-		// address _payable = payable();
-		uint256 _currentBalance = _getBalance(address(this));
-		uint256 _requestAmount = _calculateFillUp(_currentBalance);
-		_getEtherbase().partiallyRetrieve(payable(address(this)), _requestAmount);
-		require(_getBalance(address(this)) == MIN_CONTRACT_BALANCE, "Error Filling Up");
-		emit ContractFilled(msg.sender, _requestAmount);
+	/// @notice Allows CONTRACT_MANAGER to Pause/Unpause Contract
+	/// @dev Must Have CONTRACT_MANAGER_ROLE
+	function updateActiveState() external onlyContractManager {
+		isPaused = !isPaused;
 	}
 }
