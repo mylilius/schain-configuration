@@ -23,6 +23,10 @@ pragma solidity ^0.8.0;
 
 import "../interfaces/IEtherbase.sol";
 
+/// Ignore this contract -> Development Purposes Only
+/// Consider Deprecated
+
+
 contract SFuelV3 {
     uint256 MAX_CONTRACT_BALANCE;
     uint256 MIN_CONTRACT_BALANCE;
