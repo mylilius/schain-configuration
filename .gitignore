@@ -15,3 +15,7 @@ venv
 data
 /cache
 cache
+
+# New
+InternalUpdates.md
+./InternalUpdates.md
