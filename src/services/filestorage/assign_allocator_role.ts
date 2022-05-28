@@ -17,24 +17,36 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+
 /**
- * @file predeployed.ts
+ * @file assign_allocator_role.ts
  * @copyright TheGreatAxios | Lilius, Inc 2022-Present
  * 
  * Questions regarding the pseudonym of TheGreatAxios can be forwarded to thegreataxios@mylilius.com
 **/
 
-export interface IAddress {
-	[key: string]: string;
+import assignRoleMultisigWallet from "../multisig_assign_role";
+import * as Config from '../../config';
+import MultiSigWallet from "../../manager/wallet";
+
+const CONTRACT: string = 'FileStorage';
+const FUNCTION: string = 'grantRole';
+const ROLE: string = 'ALLOCATOR_ROLE';
+
+async function main() {
+
+    try {
+        let multi_sig_wallet: MultiSigWallet = new MultiSigWallet();
+        const ROLE_HASH = await multi_sig_wallet.getRole(CONTRACT, ROLE);
+        await assignRoleMultisigWallet(multi_sig_wallet, CONTRACT, FUNCTION, <any>[ROLE_HASH, Config.ASSIGN_ETHER_MANAGER_ROLE_ADDRESS]);
+        await multi_sig_wallet.checkRole(CONTRACT, ROLE);
+    } catch (err) {
+        throw new Error("Error Assigning ALLOCATOR_ROLE on FileStorage");
+    }
 }
 
-export const ADDRESSES_SCHAIN: IAddress = {
-	etherbase: "0xd2bA3e0000000000000000000000000000000000",
-	marionette: "0xD2c0DeFACe000000000000000000000000000000",
-	configController: "0xD2002000000000000000000000000000000000d2",
-	fileStorage: "0xD3002000000000000000000000000000000000d3"
-};
-
-export const ADDRESSES_MAINNET: IAddress = {
-	messageProxy: "0x656fb12abab353FB1875a4e3Dc4D70179CB85BA4"
-};
+main()
+    .then(() => process.exit(0))
+    .catch((err: any) => {
+        process.exit(1);
+    });
