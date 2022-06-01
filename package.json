@@ -20,6 +20,9 @@
     "skale:assign:etherbase:users": "tsc && node ./build/scripts/skale/assign_users_ether_manager_role.js",
     "msg:etherbase:default": "tsc && node ./build/services/etherbase/assign_default_admin_role.js",
     "msg:etherbase:ether": "tsc && node ./build/services/etherbase/assign_ether_manager_role.js",
+    "msg:filestorage:default": "tsc && node ./build/services/filestorage/assign_default_admin_role.js",
+    "msg:filestorage:allocator": "tsc && node ./build/services/filestorage/assign_allocator_role.js",
+    "msg:filestorage:admin": "tsc && node ./build/services/filestorage/assign_admin_role.js",
     "test": "mocha --timeout=20000"
   },
   "author": "TheGreatAxios",
