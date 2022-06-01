@@ -38,7 +38,7 @@ async function main() {
     try {
         let multi_sig_wallet: MultiSigWallet = new MultiSigWallet();
         const ROLE_HASH = await multi_sig_wallet.getRole(CONTRACT, ROLE);
-        await assignRoleMarionette(multi_sig_wallet, CONTRACT, FUNCTION, <any>[ROLE_HASH, Config.MULTI_SIG]);
+        await assignRoleMarionette(multi_sig_wallet, CONTRACT, FUNCTION, <any>[ROLE_HASH, Config.ASSIGN_ETHER_MANAGER_ROLE_ADDRESS]);
     } catch (err) {
         console.log("ERROR");
         throw new Error("Error Assigning DEFAULT_ADMIN_ROLE Etherbase");
