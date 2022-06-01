@@ -51,7 +51,6 @@ class MultiSigWallet {
     }
     /// Derived SKALE Network under AGPL-3.0 with modifications
     private async _getMultiSigWallet() : Promise<Contract> {
-        // console.log("ABC");
         const privateKey = Config.MSG_WALLET_PRIVATE_KEY; // process.env[`PRIVATE_KEY_${globalOptions.account}`];
         const provider = new ethers.providers.JsonRpcProvider(Config.MSG_WALLET_CHAIN_RPC);
         const signer = new ethers.Wallet(privateKey).connect(provider);
@@ -96,41 +95,55 @@ class MultiSigWallet {
     
     /// Derived SKALE Network under AGPL-3.0 with modifications
     public async submitViaMarionette(contractName: string, func: string, params: any[]) {
-        console.log("ABC", params);
+        // console.log("ABC", params);
         const marionette = await this._getMarionette();
         const msgWallet = await this._getMultiSigWallet();
         let receipt;
         const destinationContract = await this.getDestinationContract(contractName);
-        // console.log(destinationContract);
+        console.log("Address: ", destinationContract.address);
+        console.log("Function : ", func);
+        console.log("Params: ", params);
         try {
             receipt = await (await msgWallet.submitTransaction(
                 marionette.address,
-                '100000',
+                '0',
                 marionette.interface.encodeFunctionData(
                     "execute",
                     [
                         destinationContract.address,
-                        '100000',
+                        '0',
                         destinationContract.interface.encodeFunctionData(
                             func,
                             params
                         )
                     ]
-                ), { gasLimit: 3000000 }
+                ), { gasLimit: 5000000 }
             )).wait();
+
+            // console.log("Receipt: ", receipt);
+            console.log("--------------EVENTS--------------")
+            for (let event of receipt.events) {
+                if (event.event != undefined) {
+                    console.log(`${event.event}(${event.args})`);
+                    console.log("Receipt: ", await event.getTransactionReceipt());
+                }
+            }
+            console.log("----------------------------------")
+            console.log(`Gas used: ${receipt.gasUsed}`)
+            console.log(`Tx hash: ${receipt.transactionHash}`)
         } catch (err: any) {
+            console.log(err);
             throw new Error(err);
         }
     }
     
     /// Derived SKALE Network under AGPL-3.0 with modifications
     public async submitViaMultiSig(contractName: string, func: string, params: any[]) {
-        console.log("Params", params);
         const msgWallet: Contract = await this._getMultiSigWallet();
         let receipt;
         const destinationContract = await this.getDestinationContract(contractName);
-        console.log(destinationContract);
-        console.log(msgWallet);
+        // console.log(destinationContract);
+        // console.log(msgWallet);
         try {
             receipt = await (await msgWallet.submitTransaction(
                 destinationContract.address,
@@ -146,6 +159,7 @@ class MultiSigWallet {
             for (let event of receipt.events) {
                 if (event.event != undefined) {
                     console.log(`${event.event}(${event.args})`);
+                    console.log("Receipt: ", event.getTransactionReceipt());
                 }
             }
             console.log("----------------------------------")
@@ -158,13 +172,41 @@ class MultiSigWallet {
 
     public async getRole(contractName: string, role: string) {
         let contract = await this.getDestinationContract(contractName);
+        console.log("Contract: ", contract);
         contract = contract.connect(new ethers.providers.JsonRpcProvider(Config.MSG_WALLET_CHAIN_RPC))
         switch (role) {
             case ('ETHER_MANAGER_ROLE'):
                 return await contract.callStatic.ETHER_MANAGER_ROLE();
+            case ('ALLOCATOR_ROLE'):
+                return await contract.callStatic.ALLOCATOR_ROLE();
+            case ('ADMIN_ROLE'):
+                return await contract.callStatic.ADMIN_ROLE();
             default:
                 return await contract.callStatic.DEFAULT_ADMIN_ROLE();
         }
+    }
+
+    public async checkRole(contractName: string, role: string) {
+        let contract = await this.getDestinationContract(contractName);
+        contract = contract.connect(new ethers.providers.JsonRpcProvider(Config.MSG_WALLET_CHAIN_RPC))
+        let roleHash;
+        switch (role) {
+            case ('ETHER_MANAGER_ROLE'):
+                roleHash = await contract.callStatic.ETHER_MANAGER_ROLE();
+                break;
+            case ('ALLOCATOR_ROLE'):
+                roleHash = await contract.callStatic.ALLOCATOR_ROLE();
+                break;
+            case ('ADMIN_ROLE'):
+                roleHash = await contract.callStatic.ADMIN_ROLE();
+                break;
+            default:
+                roleHash = await contract.callStatic.DEFAULT_ADMIN_ROLE();
+                break;
+        }
+        console.log("Members: " + role + " :", await contract.callStatic.getRoleMemberCount(roleHash));
+        console.log("Has Role: " + role + " :", await contract.callStatic.hasRole(roleHash, "0xD244519000000000000000000000000000000000"));
+        console.log("Has Role: Marionette: ", await contract.callStatic.hasRole(roleHash, Config.ADDRESSES_SCHAIN['marionette']));
     }
 }
 

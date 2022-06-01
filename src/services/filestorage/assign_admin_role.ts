@@ -19,34 +19,37 @@
 
 
 /**
- * @file assign_default_admin_role.ts
+ * @file assign_allocator_role.ts
  * @copyright TheGreatAxios | Lilius, Inc 2022-Present
  * 
  * Questions regarding the pseudonym of TheGreatAxios can be forwarded to thegreataxios@mylilius.com
 **/
 
-import assignRoleMarionette from "../marionette_assign_role";
+import assignRoleMultisigWallet from "../multisig_assign_role";
 import * as Config from '../../config';
 import MultiSigWallet from "../../manager/wallet";
 
-const CONTRACT: string = 'Etherbase';
+const CONTRACT: string = 'FileStorage';
 const FUNCTION: string = 'grantRole';
-const ROLE: string = 'DEFAULT_ADMIN_ROLE';
+const ROLE: string = 'ADMIN_ROLE';
 
 async function main() {
+
+    console.log("HERE");
 
     try {
         let multi_sig_wallet: MultiSigWallet = new MultiSigWallet();
         const ROLE_HASH = await multi_sig_wallet.getRole(CONTRACT, ROLE);
-        await assignRoleMarionette(multi_sig_wallet, CONTRACT, FUNCTION, <any>[ROLE_HASH, Config.ASSIGN_ETHER_MANAGER_ROLE_ADDRESS]);
+        await assignRoleMultisigWallet(multi_sig_wallet, CONTRACT, FUNCTION, <any>[ROLE_HASH, Config.ASSIGN_ETHER_MANAGER_ROLE_ADDRESS]);
+        await multi_sig_wallet.checkRole(CONTRACT, ROLE);
     } catch (err) {
-        console.log("ERROR");
-        throw new Error("Error Assigning DEFAULT_ADMIN_ROLE Etherbase");
+        throw new Error("Error Assigning ADMIN_ROLE on FileStorage");
     }
 }
 
 main()
     .then(() => process.exit(0))
     .catch((err: any) => {
+        console.log(err);
         process.exit(1);
     });
