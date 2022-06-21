@@ -568,8 +568,8 @@
       ]
     },
     "/Users/thegreataxios/MyLilius/infrastructure/blockchain/calypso/sfuel/contracts/s_fuel/SFuelContractsUpgradeable.sol": {
-      "lastModificationDate": 1653343910502,
-      "contentHash": "edc8606380996cecf428f8deb306a364",
+      "lastModificationDate": 1653745504370,
+      "contentHash": "21d6e090fa6efed45784e6625bd11494",
       "sourceName": "sfuel/contracts/s_fuel/SFuelContractsUpgradeable.sol",
       "solcConfig": {
         "version": "0.8.9",
@@ -597,6 +597,7 @@
       },
       "imports": [
         "@openzeppelin/contracts-upgradeable/access/AccessControlEnumerableUpgradeable.sol",
+        "@openzeppelin/contracts-upgradeable/utils/math/SafeMathUpgradeable.sol",
         "../interfaces/IEtherbaseUpgradeable.sol"
       ],
       "versionPragmas": [
@@ -839,8 +840,8 @@
       ]
     },
     "/Users/thegreataxios/MyLilius/infrastructure/blockchain/calypso/sfuel/contracts/s_fuel/SFuelContracts.sol": {
-      "lastModificationDate": 1653397939535,
-      "contentHash": "57f60f7e13f77fba30a393e613e0803b",
+      "lastModificationDate": 1654526986503,
+      "contentHash": "8ef1fede0c8794bc858f31e8cab9307e",
       "sourceName": "sfuel/contracts/s_fuel/SFuelContracts.sol",
       "solcConfig": {
         "version": "0.8.9",
@@ -868,7 +869,7 @@
       },
       "imports": [
         "@openzeppelin/contracts/access/AccessControlEnumerable.sol",
-        "@openzeppelin/contracts/access/IAccessControlEnumerable.sol",
+        "@openzeppelin/contracts/utils/math/SafeMath.sol",
         "../interfaces/IEtherbase.sol"
       ],
       "versionPragmas": [
@@ -1255,8 +1256,8 @@
       ]
     },
     "/Users/thegreataxios/MyLilius/infrastructure/blockchain/calypso/sfuel/contracts/s_fuel/SFuelV3.sol": {
-      "lastModificationDate": 1653394393038,
-      "contentHash": "936ba0fd98d4012841b52b1b35a84505",
+      "lastModificationDate": 1653745504371,
+      "contentHash": "f3f32d82134dad9f94910ec5fb04eb5d",
       "sourceName": "sfuel/contracts/s_fuel/SFuelV3.sol",
       "solcConfig": {
         "version": "0.8.9",
@@ -1290,6 +1291,120 @@
       ],
       "artifacts": [
         "SFuelV3"
+      ]
+    },
+    "/Users/thegreataxios/MyLilius/infrastructure/blockchain/calypso/node_modules/@openzeppelin/contracts/utils/math/SafeMath.sol": {
+      "lastModificationDate": 1653333091455,
+      "contentHash": "2337f0279507b5edf14a07067adf0d05",
+      "sourceName": "@openzeppelin/contracts/utils/math/SafeMath.sol",
+      "solcConfig": {
+        "version": "0.8.9",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "SafeMath"
+      ]
+    },
+    "/Users/thegreataxios/MyLilius/infrastructure/blockchain/calypso/sfuel/contracts/s_fuel/SFuelRegistry.sol": {
+      "lastModificationDate": 1654455815355,
+      "contentHash": "b95447be63c108f2933dcf843fbb5816",
+      "sourceName": "sfuel/contracts/s_fuel/SFuelRegistry.sol",
+      "solcConfig": {
+        "version": "0.8.9",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/access/AccessControlEnumerable.sol",
+        "@openzeppelin/contracts/utils/math/SafeMath.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "SFuelRegistry"
+      ]
+    },
+    "/Users/thegreataxios/MyLilius/infrastructure/blockchain/calypso/sfuel/contracts/SFuelRegistryUpgradeable.sol": {
+      "lastModificationDate": 1654444386633,
+      "contentHash": "88aea2a7bbd11598135a5dfa308acf6c",
+      "sourceName": "sfuel/contracts/SFuelRegistryUpgradeable.sol",
+      "solcConfig": {
+        "version": "0.8.9",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts-upgradeable/access/AccessControlEnumerableUpgradeable.sol",
+        "@openzeppelin/contracts-upgradeable/utils/math/SafeMathUpgradeable.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "SFuelRegistryUpgradeable"
       ]
     }
   }

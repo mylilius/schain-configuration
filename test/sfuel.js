@@ -6,7 +6,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 const fs = promises;
 
-describe('S-Fuel Access Test V1', () => {
+xdescribe('S-Fuel Access Test V1', () => {
     let nft1, nft2, sfuel, provider;
     let account;
     before(async() => {
